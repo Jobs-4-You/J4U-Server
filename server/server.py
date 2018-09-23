@@ -1,5 +1,5 @@
 from flask import Flask
-from database.database import init_db
+from database.database import init_db, db_session
 
 app = Flask('J4U-Server')
 
