@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, abort, jsonify
 from flask_login import LoginManager, current_user, login_user
 from database.database import init_db, db_session
 from database.models import User
@@ -27,11 +27,9 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('login'))
+          abort(400, 'Invalid email or password')
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In', form=form)
+        return jsonify(success=True)
 
 
 if __name__ == "__main__":
