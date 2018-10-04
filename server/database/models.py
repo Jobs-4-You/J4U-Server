@@ -9,12 +9,13 @@ class User(UserMixin, Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
     email = Column(String(120), unique=True)
-    pwd_hash = Column(String(32), unique=True)
+    pwd_hash = Column(String(256), unique=True)
     form_done = Column(Boolean())
 
     def __init__(self, name=None, email=None, pwd=None, form_done=False):
         self.name = name
         self.email = email
+        self.set_password(pwd)
         self.form_done = form_done
 
     def set_password(self, password):
