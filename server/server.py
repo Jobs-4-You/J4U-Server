@@ -47,6 +47,14 @@ def logout():
     logout_user()
     return jsonify(success=True)
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = request.form.to_dict()
+    new_user = User(name=form['pseudo'], email=form['email'], pwd=form['password'])
+    db_session.add(new_user)
+    db_session.commit()
+    return jsonify(success=True)
+
 
 @app.route('/recom', methods=['GET'])
 def recomend():
