@@ -117,8 +117,6 @@ def recom(*var):
     print('Done ! ')
 
     return {
-        "HTTP Code": "200",
-        'message': 'All argument passed',
         'vars': list_var,
         'jobs': list(res[0]),
         'importance': list(res[1])
