@@ -66,7 +66,8 @@ def recomend():
     survey_id = current_user.survey_id
 
     data = request.json
-    params = get_vars(survey_id) + [data.get('alpha'), data.get('oldJobValue'), data.get('beta')]
+    print(data)
+    params = get_vars(survey_id) + [float(data.get('alpha')), data.get('oldJobValue'), float(data.get('beta'))]
     res = recom(*params)
     return jsonify(res)
 
