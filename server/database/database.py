@@ -20,7 +20,16 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
     from database.models import User
-    admin = User(name='admin_jdid', email='admin@example.com', pwd='jdida', survey_id='Doriana')
+    admin = User(
+        firstName='admin',
+        lastName='nimda',
+        phone='0658062948',
+        email='admin@example.com',
+        pwd='jdida',
+        plastaId='007',
+        surveyId='Doriana',
+        verified=True,
+        formDone=True)
     db_session.add(admin)
     db_session.commit()
     print(User.query.all())
