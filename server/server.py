@@ -24,7 +24,7 @@ app.config.update(dict(
     MAIL_SERVER = 'smtp.unil.ch',
     MAIL_PORT = 465,
     MAIL_USERNAME = 'jvaubien',
-    MAIL_PASSWORD = 'alimonboss74!',
+    MAIL_PASSWORD = 'test',
 ))
 
 mail = Mail(app)
