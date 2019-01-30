@@ -7,7 +7,7 @@ dev = {
 }
 
 prod = {
-    'host': 'https://j4u.uni.ch:3000',
+    'url': 'https://j4u.uni.ch:3000',
     'host': '127.0.0.1',
     'port': 3000
 }
