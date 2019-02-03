@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, redirect
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_current_user
 from flask_cors import CORS
 from flask_mail import Mail, Message
@@ -8,7 +8,8 @@ from recom import recom
 from qualtrics import get_vars
 from config import get_config
 from itsdangerous import URLSafeTimedSerializer
-
+from tracking import track_login, track_recommendation, track_inapp
+from logdb.database import init_logdb
 
 app = Flask('J4U-Server')
 app.secret_key = 'super secret key'
@@ -24,7 +25,7 @@ app.config.update(dict(
     MAIL_SERVER = 'smtp.unil.ch',
     MAIL_PORT = 465,
     MAIL_USERNAME = 'jvaubien',
-    MAIL_PASSWORD = 'test',
+    MAIL_PASSWORD = 'alimonboss74!',
 ))
 
 mail = Mail(app)
@@ -75,6 +76,8 @@ def verify():
         user = User.query.filter_by(email=email).first()
         user.verified = True
         db_session.commit()
+        return redirect('{}/#/verified'.format(get_config()['app_url']), code=302)
+
         return jsonify(success=True)
 
     return jsonify({"msg": "error"}), 400
@@ -92,10 +95,10 @@ def login():
     if not password:
         return jsonify({"msg": "Missing password parameter"}), 400
 
-    print(email)
     user = User.query.filter_by(email=email).first()
 
     if user and user.check_password(password):
+        track_login(user.email)
         # Identity can be any data that is json serializable
         access_token = create_access_token(identity=user.id)
         payload = row2dict(user)
@@ -144,32 +147,19 @@ def recomend():
         float(data.get('beta'))
     ]
     res = recom(*params)
+    track_recommendation(params[-3], params[-2], params[-1])
     return jsonify(res)
 
-    return '', 200
-    params = [
-        int(request.args.get('var1')),
-        int(request.args.get('var2')),
-        int(request.args.get('var3')),
-        int(request.args.get('var4')),
-        int(request.args.get('var5')),
-        int(request.args.get('var6')),
-        int(request.args.get('var7')),
-        int(request.args.get('var8')),
-        int(request.args.get('var9')),
-        int(request.args.get('var10')),
-        int(request.args.get('var11')),
-        int(request.args.get('var12')),
-        int(request.args.get('var13')),
-        str(request.args.get('var14')),
-        int(request.args.get('var15')),
-    ]
-    print(params)
-    res = recom(*params)
 
-    return jsonify(res)
+@app.route('/track', methods=['POST'])
+@jwt_required
+def track():
+    obj = request.json
+    track_inapp(obj)
+    return jsonify(success=True)
 
 
 if __name__ == "__main__":
     init_db()
+    init_logdb()
     app.run(host=get_config()['host'], port=get_config()['port'])
