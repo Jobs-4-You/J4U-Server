@@ -10,6 +10,7 @@ from config import get_config
 from itsdangerous import URLSafeTimedSerializer
 from tracking import track_login, track_recommendation, track_inapp
 from logdb.database import init_logdb
+from fuzz import search
 
 app = Flask('J4U-Server')
 app.secret_key = 'super secret key'
@@ -157,6 +158,15 @@ def track():
     obj = request.json
     track_inapp(obj)
     return jsonify(success=True)
+
+
+@app.route('/jobprops', methods=['GET'])
+#@jwt_required
+def job_props():
+    job = request.args.get('job')
+    res = search(job) 
+    print(res, '------')
+    return jsonify(res)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, TEXT
+import json
 
 client = MongoClient(
     'localhost',
@@ -8,6 +9,7 @@ client = MongoClient(
 db = client['j4u-logs']
 
 activities = db['activities']
+jobs = db['jobs']
 
 
 def init_logdb():
@@ -16,3 +18,10 @@ def init_logdb():
     # you will have to import them first before calling init_db()
 
     activities.drop()
+    jobs.drop()
+
+    with open('coded-jobs.json') as f:
+        data = json.load(f)
+
+    jobs.insert_many(data)
+    jobs.create_index([('label', TEXT)])
