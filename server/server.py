@@ -149,6 +149,7 @@ def recomend():
     ]
     res = recom(*params)
     track_recommendation(params[-3], params[-2], params[-1])
+    print(res)
     return jsonify(res)
 
 
@@ -161,8 +162,12 @@ def track():
 
 
 @app.route('/jobprops', methods=['GET'])
-#@jwt_required
+@jwt_required
 def job_props():
+    current_user = get_current_user()
+    print()
+    print(current_user, 'x'*10)
+    print()
     job = request.args.get('job')
     res = search(job) 
     print(res, '------')

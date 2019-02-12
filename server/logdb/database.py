@@ -20,8 +20,8 @@ def init_logdb():
     activities.drop()
     jobs.drop()
 
-    with open('coded-jobs.json') as f:
+    with open('jobs.json') as f:
         data = json.load(f)
 
     jobs.insert_many(data)
-    jobs.create_index([('label', TEXT)])
+    jobs.create_index([('Title', TEXT)])
