@@ -36,6 +36,7 @@ data['ElementName'] = data['ElementName'].fillna(value='JobZones')
 # Drop the missing rows from ElementName
 data.dropna(subset=[u'ElementName'], inplace=True)
 
+
 def compute_dist(quest_point, past_occup, alpha, beta):
 
 

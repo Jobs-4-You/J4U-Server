@@ -1,6 +1,6 @@
 import binascii, os
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, Float
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import Base
 
@@ -17,6 +17,10 @@ class User(UserMixin, Base):
     formDone = Column(Boolean(), default=False)
     surveyId = Column(String(50))
     verified = Column(Boolean(), default=False)
+    alpha = Column(Float, nullable=True)
+    beta = Column(Float, nullable=True)
+    oldJobValue = Column(Integer, nullable=True)
+    oldJobLabel = Column(String(100), nullable=True)
 
     def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False):
         self.firstName = firstName
