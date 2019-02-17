@@ -5,7 +5,7 @@ from flask_mail import Mail, Message
 from database.database import init_db, db_session
 from database.models import User
 from recom import recom
-from qualtrics import get_vars
+from qualtrics import retrieve_all, get_vars
 from config import get_config
 from itsdangerous import URLSafeTimedSerializer
 from tracking import track_login, track_recommendation, track_inapp
@@ -155,7 +155,7 @@ def recomend():
 
     survey_id = current_user.surveyId
 
-    params = get_vars(survey_id) + [
+    params = get_vars(current_user) + [
         current_user.alpha, current_user.oldJobValue, current_user.beta
     ]
     res = recom(*params)
@@ -183,6 +183,23 @@ def job_props():
     res = search(job)
     print(res, '------')
     return jsonify(res)
+
+
+@app.route('/link', methods=['GET'])
+@jwt_required
+def link():
+    current_user = get_current_user()
+
+    valid = retrieve_all(current_user.surveyId)
+
+    if valid:
+        return jsonify(success=True)
+
+    return jsonify(success=False)
+    
+
+
+
 
 
 if __name__ == "__main__":

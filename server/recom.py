@@ -113,6 +113,7 @@ def recom(*var):
         var[0], var[1], var[2], var[3], var[4], var[5], var[6], var[7], var[8],
         var[9], var[10], var[11]
     ]
+    print(list_var)
     list_var = [var / 100 for var in list_var]
 
     # The weight Importance of the old Position values

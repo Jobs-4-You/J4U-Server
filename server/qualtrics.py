@@ -1,5 +1,3 @@
-# Python 3
-
 import requests
 import zipfile
 import json
@@ -7,8 +5,10 @@ import io, os
 import sys
 import pandas as pd
 from io import StringIO
+from database.database import db_session
+from database.models import User, Features
 
-def get_vars(id):
+def get_surveys():
     # Setting user Parameters
     apiToken = 'T8o9qNI2J3hnl1TlMEcn2nLShZWW0Kj1ZvyoaLAf'
 
@@ -58,7 +58,39 @@ def get_vars(id):
     z = zipfile.ZipFile(io.BytesIO(requestDownload.content))
     data = z.read('J4U  - COGTEL AND ONET.csv')
     df = pd.read_csv(StringIO(str(data, 'utf-8')))
-    cols = ['SC3','SC5', 'SC6', 'SC4', 'SC7', 'SC0', 'SC2', 'SC1', 'SC10', 'SC11', 'SC9', 'SC8']
-    res = df[df['id'] == id]
-    return res[cols].values[0].astype(float).tolist()
-    print(res[cols])
+    cols = ['id', 'SC3','SC5', 'SC6', 'SC4', 'SC7', 'SC0', 'SC2', 'SC1', 'SC10', 'SC11', 'SC9', 'SC8']
+    return df[cols]
+
+def retrieve_all(surveyId):
+    df = get_surveys()
+    uois = User.query.filter_by(formDone=False).all()
+
+    for uoi in uois:
+        if uoi.surveyId in df['id'].unique():
+            v = df[df['id'] == uoi.surveyId][df.columns[1:]].values[0]
+            f = Features(*v)
+            uoi.features = f
+            uoi.formDone = True
+            db_session.add(uoi)
+
+    db_session.commit()
+
+    if surveyId in df['id'].unique():
+        return True
+    return False
+
+def get_vars(user):
+    return [
+        user.features.var1,
+        user.features.var2,
+        user.features.var3,
+        user.features.var4,
+        user.features.var5,
+        user.features.var6,
+        user.features.var7,
+        user.features.var8,
+        user.features.var9,
+        user.features.var10,
+        user.features.var11,
+        user.features.var12,
+    ]

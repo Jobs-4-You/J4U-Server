@@ -28,8 +28,25 @@ def init_db():
         pwd='jdida',
         plastaId='007',
         surveyId='Doriana',
-        verified=True,
-        formDone=True)
-    db_session.add(admin)
+        verified=True)
+    other = User(
+        firstName='other',
+        lastName='nimda',
+        phone='0658062947',
+        email='other@example.com',
+        pwd='jdida',
+        plastaId='009',
+        surveyId='4Th1',
+        verified=True)
+    ather = User(
+        firstName='ather',
+        lastName='nimda',
+        phone='0658062949',
+        email='ather@example.com',
+        pwd='jdida',
+        plastaId='003',
+        surveyId='4TTu',
+        verified=True)
+    db_session.add_all([admin, other, ather])
     db_session.commit()
     print(User.query.all())
