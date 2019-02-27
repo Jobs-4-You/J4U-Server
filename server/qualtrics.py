@@ -4,6 +4,7 @@ import json
 import io, os
 import sys
 import pandas as pd
+import numpy as np
 from io import StringIO
 from database.database import db_session
 from database.models import User, Features
@@ -58,7 +59,8 @@ def get_surveys():
     z = zipfile.ZipFile(io.BytesIO(requestDownload.content))
     data = z.read('J4U  - COGTEL AND ONET.csv')
     df = pd.read_csv(StringIO(str(data, 'utf-8')))
-    cols = ['id', 'SC3','SC5', 'SC6', 'SC4', 'SC7', 'SC0', 'SC2', 'SC1', 'SC10', 'SC11', 'SC9', 'SC8']
+    df = df[(df['Finished'] == '1') & (df['id.1'].notnull())]
+    cols = ['id.1', 'SC3','SC5', 'SC6', 'SC4', 'SC7', 'SC0', 'SC2', 'SC1', 'SC10', 'SC11', 'SC9', 'SC8']
     return df[cols]
 
 def retrieve_all(surveyId):
@@ -66,8 +68,8 @@ def retrieve_all(surveyId):
     uois = User.query.filter_by(formDone=False).all()
 
     for uoi in uois:
-        if uoi.surveyId in df['id'].unique():
-            v = df[df['id'] == uoi.surveyId][df.columns[1:]].values[0]
+        if uoi.surveyId in df['id.1'].unique():
+            v = df[df['id.1'] == uoi.surveyId][df.columns[1:]].values[0]
             f = Features(*v)
             uoi.features = f
             uoi.formDone = True
@@ -94,3 +96,6 @@ def get_vars(user):
         user.features.var11,
         user.features.var12,
     ]
+
+df = get_surveys().values
+print(df)
