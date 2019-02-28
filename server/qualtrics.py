@@ -110,7 +110,3 @@ def get_vars(user):
         user.features.var11,
         user.features.var12,
     ]
-
-
-df = get_surveys().values
-print(df)

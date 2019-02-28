@@ -27,7 +27,7 @@ def init_db():
         email='admin@example.com',
         pwd='jdida',
         plastaId='007',
-        surveyId='Doriana',
+        surveyId='289431b56f314b24ccd4b9582ce4aee1',
         verified=True)
     other = User(
         firstName='other',
