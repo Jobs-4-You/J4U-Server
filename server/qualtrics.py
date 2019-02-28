@@ -9,10 +9,10 @@ from io import StringIO
 from database.database import db_session
 from database.models import User, Features
 
+
 def get_surveys():
     # Setting user Parameters
     apiToken = 'T8o9qNI2J3hnl1TlMEcn2nLShZWW0Kj1ZvyoaLAf'
-
 
     surveyId = "SV_3VjBHgE8Lu9uICN"
     fileFormat = "csv"
@@ -21,19 +21,25 @@ def get_surveys():
     # Setting static parameters
     requestCheckProgress = 0.0
     progressStatus = "inProgress"
-    baseUrl = "https://{0}.qualtrics.com/API/v3/surveys/{1}/export-responses/".format(dataCenter, surveyId)
+    baseUrl = "https://{0}.qualtrics.com/API/v3/surveys/{1}/export-responses/".format(
+        dataCenter, surveyId)
     headers = {
         "content-type": "application/json",
         "x-api-token": apiToken,
-        }
+    }
 
     # Step 1: Creating Data Export
     downloadRequestUrl = baseUrl
     downloadRequestPayload = json.dumps({
         'format': fileFormat,
     })
-    downloadRequestResponse = requests.request("POST", downloadRequestUrl, data=downloadRequestPayload, headers=headers)
+    downloadRequestResponse = requests.request(
+        "POST",
+        downloadRequestUrl,
+        data=downloadRequestPayload,
+        headers=headers)
     #print(downloadRequestResponse.text)
+    print(downloadRequestResponse.json())
     progressId = downloadRequestResponse.json()["result"]["progressId"]
     #print(downloadRequestResponse.text)
 
@@ -41,8 +47,10 @@ def get_surveys():
     while progressStatus != "complete" and progressStatus != "failed":
         #print ("progressStatus=", progressStatus)
         requestCheckUrl = baseUrl + progressId
-        requestCheckResponse = requests.request("GET", requestCheckUrl, headers=headers)
-        requestCheckProgress = requestCheckResponse.json()["result"]["percentComplete"]
+        requestCheckResponse = requests.request(
+            "GET", requestCheckUrl, headers=headers)
+        requestCheckProgress = requestCheckResponse.json(
+        )["result"]["percentComplete"]
         #print("Download is " + str(requestCheckProgress) + " complete")
         progressStatus = requestCheckResponse.json()["result"]["status"]
 
@@ -54,14 +62,19 @@ def get_surveys():
 
     # Step 3: Downloading file
     requestDownloadUrl = baseUrl + fileId + '/file'
-    requestDownload = requests.request("GET", requestDownloadUrl, headers=headers, stream=True)
+    requestDownload = requests.request(
+        "GET", requestDownloadUrl, headers=headers, stream=True)
 
     z = zipfile.ZipFile(io.BytesIO(requestDownload.content))
     data = z.read('J4U  - COGTEL AND ONET.csv')
     df = pd.read_csv(StringIO(str(data, 'utf-8')))
     df = df[(df['Finished'] == '1') & (df['id.1'].notnull())]
-    cols = ['id.1', 'SC3','SC5', 'SC6', 'SC4', 'SC7', 'SC0', 'SC2', 'SC1', 'SC10', 'SC11', 'SC9', 'SC8']
+    cols = [
+        'id.1', 'SC3', 'SC5', 'SC6', 'SC4', 'SC7', 'SC0', 'SC2', 'SC1', 'SC10',
+        'SC11', 'SC9', 'SC8'
+    ]
     return df[cols]
+
 
 def retrieve_all(surveyId):
     df = get_surveys()
@@ -81,6 +94,7 @@ def retrieve_all(surveyId):
         return True
     return False
 
+
 def get_vars(user):
     return [
         user.features.var1,
@@ -96,6 +110,7 @@ def get_vars(user):
         user.features.var11,
         user.features.var12,
     ]
+
 
 df = get_surveys().values
 print(df)
