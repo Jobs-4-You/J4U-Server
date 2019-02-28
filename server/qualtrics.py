@@ -90,7 +90,7 @@ def retrieve_all(surveyId):
 
     db_session.commit()
 
-    if surveyId in df['id'].unique():
+    if surveyId in df['id.1'].unique():
         return True
     return False
 
