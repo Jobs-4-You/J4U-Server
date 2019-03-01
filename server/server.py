@@ -27,8 +27,8 @@ app.config.update(
         MAIL_USE_SSL=True,
         MAIL_SERVER='smtp.unil.ch',
         MAIL_PORT=465,
-        MAIL_USERNAME='jvaubien',
-        MAIL_PASSWORD='password',
+        MAIL_USERNAME='',
+        MAIL_PASSWORD='',
     ))
 
 mail = Mail(app)
@@ -58,6 +58,12 @@ def row2dict(row):
         d[column.name] = getattr(row, column.name)
 
     return d
+
+@app.errorhandler(Exception)
+def handle_invalid_usage(error):
+    response = jsonify(msg='Une erreur est survenue.')
+    response.status_code = 500
+    return response
 
 
 @jwt.user_loader_callback_loader
@@ -111,7 +117,7 @@ def login():
         del payload['pwd_hash']
         return jsonify(payload), 200
     else:
-        return jsonify({"msg": "Missing password parameter"}), 400
+        return jsonify({"msg": "Email ou mot de passe incorrect."}), 400
 
 
 @app.route('/signup', methods=['POST'])
@@ -132,11 +138,12 @@ def signup():
     url_conf = generate_confirmation_token(form['email'])
     msg = Message(
         'J4U: activate your account:',
-        sender='jvaubien@unil.ch',
+        sender='j4u@unil.ch',
         recipients=[form['email']])
     msg.html = '<a href="{}">Click here to confirm your email address</a>'.format(
         url_conf)
     mail.send(msg)
+    print('DONE')
     return jsonify(success=True)
 
 
@@ -196,7 +203,7 @@ def link():
         return jsonify(success=True)
 
     return jsonify(success=False)
-    
+
 
 
 
