@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, request, abort, jsonify, redirect
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, create_refresh_token, get_jwt_identity, get_current_user
 from flask_cors import CORS
@@ -11,7 +12,8 @@ from itsdangerous import URLSafeTimedSerializer
 from tracking import track_login, track_recommendation, track_inapp
 from logdb.database import init_logdb
 from fuzz import search
-import datetime
+from decorators import validate_json, validate_schema
+from validators import login_schema, signup_schema
 
 app = Flask('J4U-Server')
 app.secret_key = 'super secret key'
@@ -61,6 +63,7 @@ def row2dict(row):
 
 @app.errorhandler(Exception)
 def handle_invalid_usage(error):
+    print(error)
     response = jsonify(msg='Une erreur est survenue.')
     response.status_code = 500
     return response
@@ -93,6 +96,8 @@ def verify():
 
 
 @app.route('/login', methods=['POST'])
+@validate_json
+@validate_schema(login_schema)
 def login():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
@@ -121,6 +126,8 @@ def login():
 
 
 @app.route('/signup', methods=['POST'])
+@validate_json
+@validate_schema(signup_schema)
 def signup():
     form = request.json
     print(form)
@@ -183,12 +190,10 @@ def track():
 @jwt_required
 def job_props():
     current_user = get_current_user()
-    print()
-    print(current_user, 'x' * 10)
-    print()
     job = request.args.get('job')
+    if not job:
+        job = ''
     res = search(job)
-    print(res, '------')
     return jsonify(res)
 
 
