@@ -8,8 +8,8 @@ dev = {
 }
 
 prod = {
-    'url': 'https://j4u.uni.ch:5000',
-    'app_url': 'https://j4u.uni.ch',
+    'url': 'https://j4u.unil.ch:5000',
+    'app_url': 'https://j4u.unil.ch',
     'host': '127.0.0.1',
     'port': 3000
 }
