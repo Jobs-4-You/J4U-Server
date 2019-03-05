@@ -17,6 +17,11 @@ prod = {
 
 def get_config():
     if os.environ.get('ENV') == 'prod':
-        return prod
+        conf =  prod
     else:
-        return dev
+        conf = dev
+
+    conf['email_user'] = os.environ.get('MAIL_USER')
+    conf['email_pwd'] = os.environ.get('MAIL_PWD')
+
+    return conf

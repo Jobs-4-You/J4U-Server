@@ -29,8 +29,8 @@ app.config.update(
         MAIL_USE_SSL=True,
         MAIL_SERVER='smtp.unil.ch',
         MAIL_PORT=465,
-        MAIL_USERNAME='',
-        MAIL_PASSWORD='',
+        MAIL_USERNAME=get_config()['email_user'],
+        MAIL_PASSWORD=get_config()['email_pwd'],
     ))
 
 mail = Mail(app)
@@ -145,7 +145,7 @@ def signup():
     url_conf = generate_confirmation_token(form['email'])
     msg = Message(
         'J4U: activate your account:',
-        sender='j4u@unil.ch',
+        sender='i4u@unil.ch',
         recipients=[form['email']])
     msg.html = '<a href="{}">Click here to confirm your email address</a>'.format(
         url_conf)
