@@ -35,6 +35,7 @@ strict-rfc3339==0.7
 texttable==1.6.0
 ua-parser==0.8.0
 urllib3==1.24.1
+waitress==1.2.1
 webcolors==1.8.1
 Werkzeug==0.14.1
 yapf==0.24.0
