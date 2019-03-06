@@ -14,11 +14,14 @@ from logdb.database import init_logdb
 from fuzz import search
 from decorators import validate_json, validate_schema
 from validators import login_schema, signup_schema
+import traceback
+from waitress import serve
+
 
 app = Flask('J4U-Server')
-app.secret_key = 'super secret key'
-app.salt = 'super salt key'
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+app.secret_key = get_config()['app_key']
+app.salt = get_config()['salt']
+app.config['JWT_SECRET_KEY'] = get_config()['jwt_key']  # Change this!
 CORS(app)
 
 app.config.update(
@@ -64,6 +67,7 @@ def row2dict(row):
 @app.errorhandler(Exception)
 def handle_invalid_usage(error):
     print(error)
+    traceback.print_exc()
     response = jsonify(msg='Une erreur est survenue.')
     response.status_code = 500
     return response
@@ -174,7 +178,7 @@ def recomend():
     ]
     res = recom(*params)
     track_recommendation(params[-3], params[-2], params[-1])
-    print(res)
+    print(type(res))
     return jsonify(res)
 
 
@@ -217,4 +221,5 @@ def link():
 if __name__ == "__main__":
     init_db()
     init_logdb()
-    app.run(host=get_config()['host'], port=get_config()['port'])
+    #app.run(host=get_config()['host'], port=get_config()['port'])
+    serve(app, host=get_config()['host'], port=get_config()['port'])

@@ -23,5 +23,8 @@ def get_config():
 
     conf['email_user'] = os.environ.get('MAIL_USER')
     conf['email_pwd'] = os.environ.get('MAIL_PWD')
+    conf['app_key'] = os.environ.get('APP_KEY')
+    conf['salt'] = os.environ.get('SALT')
+    conf['jwt_key'] = os.environ.get('JWT_KEY')
 
     return conf

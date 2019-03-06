@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from collections import Counter
 from scipy.spatial.distance import squareform, pdist
+from logdb.database import jobs
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -38,7 +39,6 @@ data.dropna(subset=[u'ElementName'], inplace=True)
 
 
 def compute_dist(quest_point, past_occup, alpha, beta):
-
 
     domains = pd.unique(data['Domain'])
 
@@ -130,9 +130,17 @@ def recom(*var):
                        abilitiesImportance_beta)
     print('Done ! ')
 
+    isco08 = list(res[0])
+    jobs_title = [code_to_title[r] for r in res[0]]
+    c = list(jobs.find({'ISCO08': {'$in': isco08}}, {'AVAM': 1, 'BFS': 1, '_id': 0}))
+    avam = [x['AVAM'] for x in c]
+    bfs = [x['BFS'] for x in c]
+
     return {
         'vars': list_var,
-        'codes': list(res[0]),
-        'jobs': [code_to_title[r] for r in res[0]],
+        'isco08': isco08,
+        'jobs': jobs_title,
+        'avam': avam,
+        'bfs': bfs
         #'importance': list(res[1]),
     }

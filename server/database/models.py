@@ -26,13 +26,13 @@ class Features(Base):
     def __init__(self, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11, var12):
         self.var1 = var1
         self.var2 = var2
-        self.var3 = var3 
+        self.var3 = var3
         self.var4 = var4
         self.var5 = var5
-        self.var6 = var6 
-        self.var7 = var7 
-        self.var8 = var8 
-        self.var9 = var9 
+        self.var6 = var6
+        self.var7 = var7
+        self.var8 = var8
+        self.var9 = var9
         self.var10 = var10
         self.var11 = var11
         self.var12 = var12
@@ -50,8 +50,8 @@ class User(UserMixin, Base):
     formDone = Column(Boolean(), default=False)
     surveyId = Column(String(50))
     verified = Column(Boolean(), default=False)
-    alpha = Column(Float, nullable=True)
-    beta = Column(Float, nullable=True)
+    alpha = Column(Float, nullable=True, default=50)
+    beta = Column(Float, nullable=True, default=50)
     oldJobValue = Column(Integer, nullable=True)
     oldJobLabel = Column(String(100), nullable=True)
     features = relationship(Features, uselist=False)
@@ -66,7 +66,7 @@ class User(UserMixin, Base):
         self.formDone = formDone
         self.verified = verified
         if surveyId is None:
-            self.surveyId = binascii.b2a_hex(os.urandom(16)) 
+            self.surveyId = binascii.b2a_hex(os.urandom(16))
         else:
             self.surveyId = surveyId
 
