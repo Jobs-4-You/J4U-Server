@@ -132,9 +132,12 @@ def recom(*var):
 
     isco08 = list(res[0])
     jobs_title = [code_to_title[r] for r in res[0]]
-    c = list(jobs.find({'ISCO08': {'$in': isco08}}, {'AVAM': 1, 'BFS': 1, '_id': 0}))
-    avam = [x['AVAM'] for x in c]
-    bfs = [x['BFS'] for x in c]
+    avam = []
+    bfs = []
+    for cc in isco08:
+        c = list(jobs.find({'ISCO08': cc}, {'AVAM': 1, 'BFS': 1, '_id': 0}))
+        avam.append([x['AVAM'] for x in c])
+        bfs.append([x['BFS'] for x in c])
 
     return {
         'vars': list_var,
