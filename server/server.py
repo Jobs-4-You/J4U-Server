@@ -1,3 +1,4 @@
+import json
 import datetime
 from flask import Flask, request, abort, jsonify, redirect
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, create_refresh_token, get_jwt_identity, get_current_user
@@ -16,7 +17,7 @@ from decorators import validate_json, validate_schema
 from validators import login_schema, signup_schema
 import traceback
 from waitress import serve
-
+import requests
 
 app = Flask('J4U-Server')
 app.secret_key = get_config()['app_key']
@@ -64,11 +65,12 @@ def row2dict(row):
 
     return d
 
+
 @app.errorhandler(Exception)
 def handle_invalid_usage(error):
     print(error)
     traceback.print_exc()
-    response = jsonify(msg='Une erreur est survenue.')
+    response = jsonify(msg='Une erreur est survenue. Veuillez ré-essayer.')
     response.status_code = 500
     return response
 
@@ -118,7 +120,8 @@ def login():
     if user and user.check_password(password):
         track_login(user.email)
         # Identity can be any data that is json serializable
-        access_token = create_access_token(identity=user.id, expires_delta=datetime.timedelta(0,60*3600))
+        access_token = create_access_token(
+            identity=user.id, expires_delta=datetime.timedelta(0, 60 * 3600))
         refresh_token = create_refresh_token(identity=user.id)
         payload = row2dict(user)
         payload['accessToken'] = access_token
@@ -214,8 +217,48 @@ def link():
     return jsonify(success=False)
 
 
+@app.route('/positions', methods=['POST'])
+@jwt_required
+def positions():
+    data = request.json
+    print(data)
+    job = request.args.get('avam')
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/json',
+        'Postman-Token': 'a22088d4-4d7f-4d72-b14d-bceb48ef23db',
+        'X-Requested-With': 'XMLHttpRequest',
+        'cache-control': 'no-cache',
+    }
+    params = (
+        ('page', '0'),
+        ('size', '20'),
+        ('sort', 'score'),
+    )
+    data = {
+        "permanent": None,
+        "workloadPercentageMin": 0,
+        "workloadPercentageMax": 100,
+        "onlineSince": 30,
+        "displayRestricted": False,
+        "keywords": [],
+        "professionCodes": data['codes'],
+        "communalCodes": [],
+        "cantonCodes": []
+    }
+    print()
+    print(json.dumps(data))
+    print()
+    response = requests.post(
+        'https://cors-anywhere.herokuapp.com/https://www.job-room.ch/jobadservice/api/jobAdvertisements/_search',
+        headers=headers,
+        params=params,
+        data=json.dumps(data))
+    print(response.content)
+    res = response.json()
 
-
+    return jsonify(res)
 
 
 if __name__ == "__main__":
