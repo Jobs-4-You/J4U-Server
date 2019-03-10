@@ -221,7 +221,6 @@ def link():
 @jwt_required
 def positions():
     data = request.json
-    print(data)
     job = request.args.get('avam')
     headers = {
         'Accept': 'application/json, text/plain, */*',
@@ -247,15 +246,11 @@ def positions():
         "communalCodes": [],
         "cantonCodes": []
     }
-    print()
-    print(json.dumps(data))
-    print()
     response = requests.post(
-        'https://cors-anywhere.herokuapp.com/https://www.job-room.ch/jobadservice/api/jobAdvertisements/_search',
+        'https://www.job-room.ch/jobadservice/api/jobAdvertisements/_search',
         headers=headers,
         params=params,
         data=json.dumps(data))
-    print(response.content)
     res = response.json()
 
     return jsonify(res)
