@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from config import get_config
 
 engine = create_engine(
     'mysql+mysqlconnector://root:my-secret-pw@127.0.0.1/j4u', convert_unicode=True)
@@ -16,7 +17,10 @@ def init_db():
     # you will have to import them first before calling init_db()
 
     import database.models
-    Base.metadata.drop_all(bind=engine)
+
+    if get_config()['mode'] == 'dev':
+        Base.metadata.drop_all(bind=engine)
+
     Base.metadata.create_all(bind=engine)
 
     from database.models import User
@@ -47,6 +51,9 @@ def init_db():
         plastaId='003',
         surveyId='4TTu',
         verified=True)
-    db_session.add_all([admin, other, ather])
-    db_session.commit()
-    print(User.query.all())
+    try:
+        db_session.add_all([admin, other, ather])
+        db_session.commit()
+        print(User.query.all())
+    except:
+        print('Fake users already populated')
