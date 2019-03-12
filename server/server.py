@@ -1,5 +1,6 @@
 import json
 import datetime
+import sqlalchemy
 from flask import Flask, request, abort, jsonify, redirect
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, create_refresh_token, get_jwt_identity, get_current_user
 from flask_cors import CORS
@@ -18,6 +19,8 @@ from validators import login_schema, signup_schema
 import traceback
 from waitress import serve
 import requests
+import mysql
+import sys
 
 app = Flask('J4U-Server')
 app.secret_key = get_config()['app_key']
@@ -145,8 +148,11 @@ def signup():
         phone=form['phone'],
         plastaId=form['plastaId'],
         pwd=form['password'])
-    db_session.add(new_user)
-    db_session.commit()
+    try:
+        db_session.add(new_user)
+        db_session.commit()
+    except sqlalchemy.exc.IntegrityError as err:
+        return jsonify({"msg": "L'adresse email est déja utilisée."}), 422
 
     # Send a verification mail
     url_conf = generate_confirmation_token(form['email'])

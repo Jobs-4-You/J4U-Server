@@ -1,5 +1,6 @@
 from pymongo import MongoClient, TEXT
 import json
+from config import get_config
 
 client = MongoClient(
     'localhost',
@@ -17,8 +18,9 @@ def init_logdb():
     # they will be registered properly on the metadata.  Otherwise
     # you will have to import them first before calling init_db()
 
-    activities.drop()
-    jobs.drop()
+    if get_config()['mode'] == 'dev':
+        activities.drop()
+        jobs.drop()
 
     with open('jobs.json') as f:
         data = json.load(f)
