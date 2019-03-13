@@ -73,7 +73,7 @@ def row2dict(row):
 def handle_invalid_usage(error):
     print(error)
     traceback.print_exc()
-    response = jsonify(msg='Une erreur est survenue. Veuillez ré-essayer.')
+    response = jsonify(msg='Une erreur est survenue. Veuillez réessayer.')
     response.status_code = 500
     return response
 
@@ -109,14 +109,14 @@ def verify():
 @validate_schema(login_schema)
 def login():
     if not request.is_json:
-        return jsonify({"msg": "Missing JSON in request"}), 400
+        return jsonify({"msg": "Paramètre JSON manquant"}), 400
 
     email = request.json.get('email', None)
     password = request.json.get('password', None)
     if not email:
-        return jsonify({"msg": "Missing username parameter"}), 400
+        return jsonify({"msg": "Paramètre d'utilisateur manquant"}), 400
     if not password:
-        return jsonify({"msg": "Missing password parameter"}), 400
+        return jsonify({"msg": "Paramètre du mot-de-passe manquant"}), 400
 
     user = User.query.filter_by(email=email).first()
 
@@ -132,7 +132,7 @@ def login():
         del payload['pwd_hash']
         return jsonify(payload), 200
     else:
-        return jsonify({"msg": "Email ou mot de passe incorrect."}), 400
+        return jsonify({"msg": "Email ou mot-de-passe incorrect."}), 400
 
 
 @app.route('/signup', methods=['POST'])
@@ -157,10 +157,10 @@ def signup():
     # Send a verification mail
     url_conf = generate_confirmation_token(form['email'])
     msg = Message(
-        'J4U: activate your account:',
+        'J4U: Activation de compte :',
         sender='i4u@unil.ch',
         recipients=[form['email']])
-    msg.html = '<a href="{}">Click here to confirm your email address</a>'.format(
+    msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
         url_conf)
     mail.send(msg)
     print('DONE')
