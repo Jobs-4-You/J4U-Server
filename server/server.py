@@ -236,9 +236,10 @@ def positions():
         'X-Requested-With': 'XMLHttpRequest',
         'cache-control': 'no-cache',
     }
+    # SECO's JobRoom starts pagination from 0, but our pagination component matches page number and navigation items, so we need to decrease its number by one
     params = (
-        ('page', '0'),
-        ('size', '20'),
+        ('page', int(data['currentPage'])-1),
+        ('size', '10'),
         ('sort', 'score'),
     )
     data = {
