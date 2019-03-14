@@ -261,8 +261,9 @@ def positions():
         headers=headers,
         params=params,
         data=json.dumps(data))
-    print(response.content)
     res = response.json()
+    res = {'totalCount': response.headers['X-Total-Count'], 'positions': res}
+    print(res['totalCount'])
 
     return jsonify(res)
 
