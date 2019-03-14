@@ -144,6 +144,7 @@ def recom(*var):
         'isco08': isco08,
         'jobs': jobs_title,
         'avam': avam,
-        'bfs': bfs
+        'bfs': bfs,
+        'c':c
         #'importance': list(res[1]),
     }
