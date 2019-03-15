@@ -222,6 +222,16 @@ def link():
 
     return jsonify(success=False)
 
+@app.route('/linkqualitrics', methods=['GET'])
+def linkqualitrics():
+    surveyId = request.args.get('surveyId')
+    valid = retrieve_all(surveyId)
+
+    if valid:
+        environmentUrl = "http://localhost:8080" if get_config()['app_url'] == "http://127.0.0.1:8080" else get_config()['app_url']
+        return redirect('{}/#/logout'.format(environmentUrl), code=302)
+    return jsonify(success=False)
+
 
 @app.route('/positions', methods=['POST'])
 @jwt_required
