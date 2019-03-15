@@ -233,7 +233,7 @@ def linkqualitrics():
     return jsonify(success=False)
 
 
-@Adapp.route('/positions', methods=['POST'])
+@app.route('/positions', methods=['POST'])
 @jwt_required
 def positions():
     data = request.json
