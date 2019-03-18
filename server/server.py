@@ -264,6 +264,13 @@ def positions():
 
     return jsonify(res)
 
+@app.route('/userinfos', methods=['GET'])
+@jwt_required
+def user_infos():
+    current_user = get_current_user()
+    res = row2dict(current_user)
+    return jsonify(res)
+
 
 if __name__ == "__main__":
     init_db()
