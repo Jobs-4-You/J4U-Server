@@ -273,6 +273,41 @@ def positions():
 
     return jsonify(res)
 
+@app.route('/locations', methods=['GET'])
+@jwt_required
+def locations():
+    loc = request.args.get('loc')
+    if not loc:
+        loc = ''
+
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/json',
+        'Postman-Token': 'a22088d4-4d7f-4d72-b14d-bceb48ef23db',
+        'X-Requested-With': 'XMLHttpRequest',
+        'cache-control': 'no-cache',
+        'Cookie': '_ga=GA1.2.8377990.1544699425; _jr2.ID=18287a4d-86fc-49de-870a-c342698fa58d; NG_TRANSLATE_LANG_KEY=fr; JSESSIONID=_5VkSYRAG01H_nZ3MkazegLbfhdDJwm3tqiBRAQ-; _gid=GA1.2.1508386193.1554111736'
+    }
+
+    # SECO's JobRoom starts pagination from 0, but our pagination component matches page number and navigation items, so we need to decrease its number by one
+    params = (
+        ('prefix', loc),
+        ('resultSize', '10'),
+        ('distinctByLocalityCity', 'true'),
+        ('_ng','ZnI=')
+    )
+
+    response = requests.post(
+    'https://www.job-room.ch/referenceservice/api/_search/localities',
+    headers=headers,
+    params=params)
+        
+    
+    res = response.json()
+
+    return jsonify(res)
+
 @app.route('/userinfos', methods=['GET'])
 @jwt_required
 def user_infos():
