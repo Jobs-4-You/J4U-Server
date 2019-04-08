@@ -38,8 +38,12 @@ signup_schema = {
         'password': {
             'type': 'string'
         },
+        'birthDate': {
+            'type': 'string',
+            'format': 'date'
+        },
     },
     'required': [
-        'firstName', 'lastName', 'phone', 'plastaId', 'password', 'email',
+        'firstName', 'lastName', 'phone', 'plastaId', 'password', 'email', 'birthDate',
     ]
 }

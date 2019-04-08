@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from config import get_config
 
 engine = create_engine(
-    'mysql+mysqlconnector://root:my-secret-pw@127.0.0.1/j4u', convert_unicode=True)
+    'mysql+mysqlconnector://root:my-secret-pw@127.0.0.1/j4u', convert_unicode=True, pool_recycle=600)
 db_session = scoped_session(
     sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
@@ -27,15 +27,17 @@ def init_db():
     admin = User(
         firstName='admin',
         lastName='nimda',
+        birthDate='2019-01-01',
         phone='0658062948',
         email='admin@example.com',
         pwd='jdida',
-        plastaId='007',
+        plastaId='a111111',
         surveyId='289431b56f314b24ccd4b9582ce4aee1',
         verified=True)
     other = User(
         firstName='other',
         lastName='nimda',
+        birthDate='2019-01-01',
         phone='0658062947',
         email='other@example.com',
         pwd='jdida',
@@ -45,6 +47,7 @@ def init_db():
     ather = User(
         firstName='ather',
         lastName='nimda',
+        birthDate='2019-01-01',
         phone='0658062949',
         email='ather@example.com',
         pwd='jdida',

@@ -103,6 +103,22 @@ def verify():
 
     return jsonify({"msg": "error"}), 400
 
+@app.route('/sendverification', methods=['GET'])
+@jwt_required
+def send_verification():
+    # Send a verification mail
+    current_user = get_current_user()
+    url_conf = generate_confirmation_token(current_user.email)
+    msg = Message(
+        'J4U: Activation de compte :',
+        sender='i4u@unil.ch',
+        recipients=[current_user.email])
+    msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
+        url_conf)
+    mail.send(msg)
+    print('DONE')
+    return jsonify(success=True)
+
 
 @app.route('/login', methods=['POST'])
 @validate_json
@@ -144,6 +160,7 @@ def signup():
     new_user = User(
         firstName=form['firstName'],
         lastName=form['lastName'],
+        birthDate=form['birthDate'],
         email=form['email'],
         phone=form['phone'],
         plastaId=form['plastaId'],
@@ -152,7 +169,8 @@ def signup():
         db_session.add(new_user)
         db_session.commit()
     except sqlalchemy.exc.IntegrityError as err:
-        return jsonify({"msg": "L'adresse email est déja utilisée."}), 422
+        duplicated_key = err.orig.msg.split("'")[-2]
+        return jsonify({"msg": "{} est déja utilisée.".format(duplicated_key)}), 422
 
     # Send a verification mail
     url_conf = generate_confirmation_token(form['email'])
@@ -302,8 +320,8 @@ def locations():
     'https://www.job-room.ch/referenceservice/api/_search/localities',
     headers=headers,
     params=params)
-        
-    
+
+
     res = response.json()
 
     return jsonify(res)

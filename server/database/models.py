@@ -1,6 +1,6 @@
 import binascii, os
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Date
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import Base
@@ -43,6 +43,7 @@ class User(UserMixin, Base):
     id = Column(Integer, primary_key=True)
     firstName = Column(String(50))
     lastName = Column(String(50))
+    birthDate = Column(Date())
     email = Column(String(120), unique=True)
     phone = Column(String(16), unique=True)
     pwd_hash = Column(String(256))
@@ -56,9 +57,10 @@ class User(UserMixin, Base):
     oldJobLabel = Column(String(100), nullable=True)
     features = relationship(Features, uselist=False)
 
-    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False):
+    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None):
         self.firstName = firstName
         self.lastName = lastName
+        self.birthDate = birthDate
         self.phone = phone
         self.email = email
         self.set_password(pwd)
@@ -77,5 +79,5 @@ class User(UserMixin, Base):
         return check_password_hash(self.pwd_hash, password)
 
     def __repr__(self):
-        return '<User {} {} {} {} {} {} {} {}>'.format(self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified)
+        return '<User {} {} {} {} {} {} {} {} {}>'.format(self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate)
 
