@@ -270,6 +270,10 @@ def positions():
         ('size', '10'),
         ('sort', 'score'),
     )
+
+    if data['cantonCodes'] == [""] :
+        data['cantonCodes'] = []
+
     data = {
         "permanent": None,
         "workloadPercentageMin": 0,
@@ -279,7 +283,7 @@ def positions():
         "keywords": [],
         "professionCodes": data['codes'],
         "communalCodes": [],
-        "cantonCodes": []
+        "cantonCodes": data['cantonCodes']
     }
     response = requests.post(
         'https://www.job-room.ch/jobadservice/api/jobAdvertisements/_search',
