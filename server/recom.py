@@ -114,8 +114,6 @@ def recom(*var):
         var[9], var[10], var[11]
     ]
     print(list_var)
-    list_var = [var / 100 for var in list_var]
-
     # The weight Importance of the old Position values
     weight_oldPos_alpha = var[12] / 100
 
