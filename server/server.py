@@ -51,6 +51,12 @@ def generate_confirmation_token(email):
     url = '{}/verify?token={}'.format(get_config()['url'], token)
     return url
 
+def generate_reset_token(email):
+    serializer = URLSafeTimedSerializer(app.secret_key)
+    token = serializer.dumps(email, salt=app.salt)
+    url = '{}/#/reset?token={}'.format(get_config()['app_url'], token)
+    return url
+
 
 def confirm_token(token, expiration=3600):
     serializer = URLSafeTimedSerializer(app.secret_key)
@@ -103,6 +109,19 @@ def verify():
 
     return jsonify({"msg": "error"}), 400
 
+@app.route('/resetpassword', methods=['POST'])
+def reset_password():
+    token = request.json.get('token', None)
+    email = confirm_token(token)
+    password = request.json.get('password', None)
+    if password and token and email:
+        user = User.query.filter_by(email=email).first()
+        user.set_password(password)
+        db_session.commit()
+        return jsonify(success=True)
+
+    return jsonify({"msg": "error"}), 400
+
 @app.route('/sendverification', methods=['GET'])
 @jwt_required
 def send_verification():
@@ -114,6 +133,24 @@ def send_verification():
         sender='i4u@unil.ch',
         recipients=[current_user.email])
     msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
+        url_conf)
+    mail.send(msg)
+    print('DONE')
+    return jsonify(success=True)
+
+@app.route('/resetpasswordmail', methods=['GET'])
+def reset_password_mail():
+    # Send a verification mail
+    email = request.args.get('email')
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({"msg": "Le compte n'existe pas"}), 400
+    url_conf = generate_reset_token(email)
+    msg = Message(
+        'J4U: Réinitialisation du mot de passe. Veuillez cliquer sur le lien et suivre les instructions',
+        sender='i4u@unil.ch',
+        recipients=[email])
+    msg.html = '<a href="{}">Réinitialiser</a>'.format(
         url_conf)
     mail.send(msg)
     print('DONE')
@@ -170,7 +207,7 @@ def signup():
         db_session.commit()
     except sqlalchemy.exc.IntegrityError as err:
         duplicated_key = err.orig.msg.split("'")[-2]
-        return jsonify({"msg": "{} est déja utilisée.".format(duplicated_key)}), 422
+        return jsonify({"msg": "{} est déja utilisée. Si vous avez déja un compte et oublié votre mot de passe, cliquer sur 'Renvoi du mot de passe' sur la page de login".format(duplicated_key)}), 422
 
     # Send a verification mail
     url_conf = generate_confirmation_token(form['email'])
