@@ -25,12 +25,13 @@ def track_login(email):
     print(obj)
     activities.insert_one(obj)
 
-def track_recommendation(alpha, previous_job, beta):
+def track_recommendation(alpha, previous_job, beta, locationValue):
     obj = {
         'TYPE': 'RECOMMENDATION',
         'ALPHA': alpha,
         'BETA': beta,
-        'PREV_JOB': previous_job
+        'PREV_JOB': previous_job,
+        'LOCATION': locationValue
     }
 
     obj = add_meta(obj)

@@ -135,7 +135,6 @@ def send_verification():
     msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
         url_conf)
     mail.send(msg)
-    print('DONE')
     return jsonify(success=True)
 
 @app.route('/resetpasswordmail', methods=['GET'])
@@ -153,7 +152,6 @@ def reset_password_mail():
     msg.html = '<a href="{}">Réinitialiser</a>'.format(
         url_conf)
     mail.send(msg)
-    print('DONE')
     return jsonify(success=True)
 
 
@@ -193,7 +191,6 @@ def login():
 @validate_schema(signup_schema)
 def signup():
     form = request.json
-    print(form)
     new_user = User(
         firstName=form['firstName'],
         lastName=form['lastName'],
@@ -218,7 +215,6 @@ def signup():
     msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
         url_conf)
     mail.send(msg)
-    print('DONE')
     return jsonify(success=True)
 
 
@@ -233,6 +229,7 @@ def recomend():
     current_user.beta = float(data.get('beta'))
     current_user.oldJobValue = int(data.get('oldJobValue'))
     current_user.oldJobLabel = (data.get('oldJobLabel'))
+    locationValue = (data.get('locationValue'))
     db_session.commit()
 
     survey_id = current_user.surveyId
@@ -241,8 +238,8 @@ def recomend():
         current_user.alpha, current_user.oldJobValue, current_user.beta
     ]
     res = recom(*params)
-    track_recommendation(params[-3], params[-2], params[-1])
-    print(type(res))
+    track_recommendation(params[-3], params[-2], params[-1], locationValue)
+    
     return jsonify(res)
 
 
