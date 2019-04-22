@@ -2,6 +2,8 @@ from flask import request
 from ua_parser import user_agent_parser
 import time
 from logdb.database import activities
+from flask import jsonify
+from flask_jwt_extended import current_user
 
 def add_meta(obj):
     ua = request.headers.get('User-Agent')
@@ -14,15 +16,18 @@ def add_meta(obj):
     obj['OS'] = os
     obj['DEVICE'] = device
     obj['TIMESTAMP'] = time.time()
+
+    if current_user :
+        obj['USER'] = current_user.email
+
     return obj
 
 def track_login(email):
     obj = {
         'TYPE': 'LOGIN',
-        'USER': email
+        'USEREMAIL': email
     }
     obj = add_meta(obj)
-    print(obj)
     activities.insert_one(obj)
 
 def track_recommendation(alpha, previous_job, beta, locationValue):
@@ -35,10 +40,8 @@ def track_recommendation(alpha, previous_job, beta, locationValue):
     }
 
     obj = add_meta(obj)
-    print(obj)
     activities.insert_one(obj)
 
 def track_inapp(obj):
     obj = add_meta(obj)
-    print(obj)
     activities.insert_one(obj)
