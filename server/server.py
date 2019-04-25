@@ -217,6 +217,22 @@ def signup():
     mail.send(msg)
     return jsonify(success=True)
 
+@app.route('/update', methods=['POST'])
+@validate_json
+@jwt_required
+def update():
+    form = request.json
+    current_user = get_current_user()
+    current_user.firstName=form['firstName']
+    current_user.lastName=form['lastName']
+    current_user.birthDate=form['birthDate']
+    current_user.email=form['email']
+    current_user.phone=form['phone']
+    current_user.plastaId=form['plastaId']
+    db_session.add(current_user)
+    db_session.commit()
+    return jsonify(success=True)
+
 
 @app.route('/recom', methods=['POST'])
 @jwt_required
@@ -239,7 +255,7 @@ def recomend():
     ]
     res = recom(*params)
     track_recommendation(params[-3], params[-2], params[-1], locationValue)
-    
+
     return jsonify(res)
 
 
