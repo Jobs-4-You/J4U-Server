@@ -42,8 +42,11 @@ signup_schema = {
             'type': 'string',
             'format': 'date'
         },
+        'group': {
+            'type': 'string'
+        }
     },
     'required': [
-        'firstName', 'lastName', 'phone', 'plastaId', 'password', 'email', 'birthDate',
+        'firstName', 'lastName', 'phone', 'password', 'email', 'birthDate',
     ]
 }

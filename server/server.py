@@ -198,7 +198,8 @@ def signup():
         email=form['email'],
         phone=form['phone'],
         plastaId=form['plastaId'],
-        pwd=form['password'])
+        pwd=form['password'],
+        group=form['group'])
     try:
         db_session.add(new_user)
         db_session.commit()
