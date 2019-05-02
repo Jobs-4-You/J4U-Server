@@ -83,5 +83,5 @@ class User(UserMixin, Base):
         return check_password_hash(self.pwd_hash, password)
 
     def __repr__(self):
-        return '<User {} {} {} {} {} {} {} {} {}>'.format(self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate)
+        return '<User {} {} {} {} {} {} {} {} {}>'.format(self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate, self.group)
 
