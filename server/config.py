@@ -28,5 +28,6 @@ def get_config():
     conf['app_key'] = os.environ.get('APP_KEY')
     conf['salt'] = os.environ.get('SALT')
     conf['jwt_key'] = os.environ.get('JWT_KEY')
+    conf['admin_pword']= os.environ.get('ADMIN_PWORD')
 
     return conf
