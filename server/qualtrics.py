@@ -37,10 +37,10 @@ def process(df):
     needed_cols = list(name_to_var.keys())
     cols = [c for c in df.columns if 'SC' in c and df[c].iloc[0] in needed_cols]
 
-    print(df['MOY_RT'])
-    exit()
-    print(df.iloc[[0, 2]])
-    exit()
+    #print(df['MOY_RT'])
+    #exit()
+    #print(df.iloc[[0, 2]])
+    #exit()
     ######### Remove when we have complete survey data ##
     #####################################################
     #####################################################
