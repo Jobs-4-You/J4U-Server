@@ -33,7 +33,9 @@ def init_db():
         pwd='jdida',
         plastaId='a111111',
         surveyId='R_246IGQ6BPbOMDFs',
-        verified=True)
+        verified=True,
+        blocked=False,
+        group='123456')
     other = User(
         firstName='other',
         lastName='nimda',

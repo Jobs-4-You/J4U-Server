@@ -1,6 +1,7 @@
 import json
 import datetime
 import sqlalchemy
+from sqlalchemy import create_engine
 from flask import Flask, request, abort, jsonify, redirect
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, create_refresh_token, get_jwt_identity, get_current_user
 from flask_cors import CORS
@@ -198,7 +199,8 @@ def signup():
         email=form['email'],
         phone=form['phone'],
         plastaId=form['plastaId'],
-        pwd=form['password'])
+        pwd=form['password'],
+        group=form['group'])
     try:
         db_session.add(new_user)
         db_session.commit()
@@ -387,6 +389,34 @@ def user_infos():
     res = row2dict(current_user)
     return jsonify(res)
 
+@app.route('/updategroup', methods=['POST'])
+@validate_json
+def updategroup():
+    admin_password = get_config()['admin_pword']
+    password = request.json['password']
+    field = request.json['field']
+    value = request.json['value']
+    group = request.json['group']
+    if password and field and value and group:
+        if password == admin_password :
+            engine = create_engine(
+                'mysql+mysqlconnector://root:my-secret-pw@127.0.0.1/j4u', convert_unicode=True, pool_recycle=600)
+            # Temporarily turning off safe updates as group is not a key column
+            update_query = """UPDATE `j4u`.`user`
+                    SET `{}` = '{}' 
+                    WHERE (`group` = '{}')""".format(field,value,group)
+            select_query = "SELECT * FROM j4u.user WHERE `group` = '{}'".format(group)
+
+            with engine.connect() as con:
+                con.execute(update_query)
+                response = con.execute(select_query)
+                con.close()
+            res = jsonify({'response': [dict(row) for row in response]})
+            res.headers['Access-Control-Allow-Origin'] = '*'
+            return res
+        else :
+            return jsonify({"response": "wrong password"}), 400
+    return jsonify({"response": "error"}), 400
 
 if __name__ == "__main__":
     init_db()

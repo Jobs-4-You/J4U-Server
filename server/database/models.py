@@ -56,8 +56,10 @@ class User(UserMixin, Base):
     oldJobValue = Column(Integer, nullable=True)
     oldJobLabel = Column(String(100), nullable=True)
     features = relationship(Features, uselist=False)
+    blocked = Column(Boolean(), default=True)
+    group = Column(String(16))
 
-    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None):
+    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=True, group=None):
         self.firstName = firstName
         self.lastName = lastName
         self.birthDate = birthDate
@@ -67,6 +69,8 @@ class User(UserMixin, Base):
         self.plastaId = plastaId
         self.formDone = formDone
         self.verified = verified
+        self.blocked = blocked
+        self.group = group
         if surveyId is None:
             self.surveyId = binascii.b2a_hex(os.urandom(16))
         else:
@@ -79,5 +83,5 @@ class User(UserMixin, Base):
         return check_password_hash(self.pwd_hash, password)
 
     def __repr__(self):
-        return '<User {} {} {} {} {} {} {} {} {}>'.format(self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate)
+        return '<User {} {} {} {} {} {} {} {} {}>'.format(self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate, self.group)
 
