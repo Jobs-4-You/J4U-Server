@@ -28,6 +28,9 @@ app.secret_key = get_config()['app_key']
 app.salt = get_config()['salt']
 app.config['JWT_SECRET_KEY'] = get_config()['jwt_key']  # Change this!
 CORS(app)
+print(get_config()['email_user'])
+print(get_config()['email_pwd'])
+
 
 app.config.update(
     dict(
@@ -37,11 +40,14 @@ app.config.update(
         MAIL_USE_SSL=True,
         MAIL_SERVER='smtp.unil.ch',
         MAIL_PORT=465,
-        MAIL_USERNAME=get_config()['email_user'],
-        MAIL_PASSWORD=get_config()['email_pwd'],
+        MAIL_USERNAME='i4u', #get_config()['email_user'],
+        MAIL_PASSWORD='rjpwo88e' #get_config()['email_pwd'],
     ))
 
 mail = Mail(app)
+#with mail.connect() as conn:
+#    print(conn)
+
 
 jwt = JWTManager(app)
 
@@ -403,7 +409,7 @@ def updategroup():
                 'mysql+mysqlconnector://root:my-secret-pw@127.0.0.1/j4u', convert_unicode=True, pool_recycle=600)
             # Temporarily turning off safe updates as group is not a key column
             update_query = """UPDATE `j4u`.`user`
-                    SET `{}` = '{}' 
+                    SET `{}` = '{}'
                     WHERE (`group` = '{}')""".format(field,value,group)
             select_query = "SELECT * FROM j4u.user WHERE `group` = '{}'".format(group)
 

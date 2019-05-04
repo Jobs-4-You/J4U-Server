@@ -19,9 +19,9 @@ def min_max_scaler(domain, target, x):
 
 name_to_var = {
     'FluencyofIdeas': ('var1', partial(min_max_scaler, [0, 5], [1, 5])),
-    'InductiveReasonning': ('var2', partial(min_max_scaler, [0, 8], [1, 5])),
+    'Sc_Induc_Reas': ('var2', partial(min_max_scaler, [0, 8], [1, 5])),
     'CategoryFlexibility': ('var3', partial(min_max_scaler, [0, 12], [1, 5])),
-    'Memorization': ('var4', partial(min_max_scaler, [0, 12], [1, 5])),
+    'Sc_WM': ('var4', partial(min_max_scaler, [0, 12], [1, 5])),
     'Sc_RT': ('var5', partial(min_max_scaler, [0, 10], [1, 5])),
     'Sc_Verbal_Com': ('var6', partial(min_max_scaler, [0, 48], [1, 5])),
     'Monitoring': ('var7', partial(min_max_scaler, [0, 5], [1, 5])),
@@ -37,6 +37,10 @@ def process(df):
     needed_cols = list(name_to_var.keys())
     cols = [c for c in df.columns if 'SC' in c and df[c].iloc[0] in needed_cols]
 
+    print(df['MOY_RT'])
+    exit()
+    print(df.iloc[[0, 2]])
+    exit()
     ######### Remove when we have complete survey data ##
     #####################################################
     #####################################################
@@ -161,3 +165,6 @@ def get_vars(user):
         user.features.var11,
         user.features.var12,
     ]
+
+df = get_surveys()
+print(df)
