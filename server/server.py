@@ -130,7 +130,7 @@ def send_verification():
     url_conf = generate_confirmation_token(current_user.email)
     msg = Message(
         'J4U: Activation de compte :',
-        sender='i4u@unil.ch',
+        sender='j4u@unil.ch',
         recipients=[current_user.email])
     msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
         url_conf)
@@ -147,7 +147,7 @@ def reset_password_mail():
     url_conf = generate_reset_token(email)
     msg = Message(
         'J4U: Réinitialisation du mot de passe. Veuillez cliquer sur le lien et suivre les instructions',
-        sender='i4u@unil.ch',
+        sender='j4u@unil.ch',
         recipients=[email])
     msg.html = '<a href="{}">Réinitialiser</a>'.format(
         url_conf)
@@ -210,7 +210,7 @@ def signup():
     url_conf = generate_confirmation_token(form['email'])
     msg = Message(
         'J4U: Activation de compte :',
-        sender='i4u@unil.ch',
+        sender='j4u@unil.ch',
         recipients=[form['email']])
     msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
         url_conf)
