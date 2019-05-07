@@ -32,7 +32,7 @@ def init_db():
         email='admin@example.com',
         pwd='jdida',
         plastaId='a111111',
-        surveyId='R_246IGQ6BPbOMDFs',
+        surveyId='81224',
         verified=True,
         blocked=False,
         group='123456')
@@ -44,7 +44,7 @@ def init_db():
         email='other@example.com',
         pwd='jdida',
         plastaId='009',
-        surveyId='R_1ih960RV5Sh4FSz',
+        surveyId='445511',
         verified=True)
     ather = User(
         firstName='ather',
@@ -54,7 +54,7 @@ def init_db():
         email='ather@example.com',
         pwd='jdida',
         plastaId='003',
-        surveyId='R_1mkQ4Y2h8oxyCzF',
+        surveyId='9021988',
         verified=True)
     try:
         db_session.add_all([admin, other, ather])
