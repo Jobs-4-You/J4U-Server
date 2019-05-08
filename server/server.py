@@ -189,7 +189,6 @@ def login():
         payload['refreshToken'] = access_token
         del payload['pwd_hash']
         res = jsonify(payload), 200
-        res.headers['Access-Control-Allow-Origin'] = '*'
         return res
     else:
         return jsonify({"msg": "Email ou mot-de-passe incorrect."}), 400
@@ -226,7 +225,6 @@ def signup():
         url_conf)
     mail.send(msg)
     res = jsonify(success=True)
-    res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
 @app.route('/update', methods=['POST'])
@@ -422,7 +420,6 @@ def updategroup():
                 response = con.execute(select_query)
                 con.close()
             res = jsonify({'response': [dict(row) for row in response]})
-            res.headers['Access-Control-Allow-Origin'] = '*'
             return res
         else :
             return jsonify({"response": "wrong password"}), 400
