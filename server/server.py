@@ -188,7 +188,9 @@ def login():
         payload['accessToken'] = access_token
         payload['refreshToken'] = access_token
         del payload['pwd_hash']
-        return jsonify(payload), 200
+        res = jsonify(payload), 200
+        res.headers['Access-Control-Allow-Origin'] = '*'
+        return res
     else:
         return jsonify({"msg": "Email ou mot-de-passe incorrect."}), 400
 
@@ -223,7 +225,9 @@ def signup():
     msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
         url_conf)
     mail.send(msg)
-    return jsonify(success=True)
+    res = jsonify(success=True)
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
 
 @app.route('/update', methods=['POST'])
 @validate_json
