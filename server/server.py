@@ -419,7 +419,10 @@ def updategroup():
                 con.execute(update_query)
                 response = con.execute(select_query)
                 con.close()
-            res = jsonify({'response': [dict(row) for row in response]})
+            res = [dict(row) for row in response]
+            for record in res:
+                del record['pwd_hash']
+            res = jsonify({'response': res})
             return res
         else :
             return jsonify({"response": "wrong password"}), 400
