@@ -402,7 +402,7 @@ def user_infos():
 def updategroup():
     admin_password = get_config()['admin_pword']
     password = request.json['password']
-    print(password)
+    print(admin_password)
     field = request.json['field']
     value = request.json['value']
     group = request.json['group']
