@@ -351,7 +351,7 @@ def positions():
         params=params,
         data=json.dumps(data))
     res = response.json()
-    res = {'totalCount': response.headers['X-Total-Count'], 'positions': res}
+    res = {'totalCount': response.headers.get('X-Total-Count','0'), 'positions': res}
 
     return jsonify(res)
 
