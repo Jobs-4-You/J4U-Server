@@ -401,7 +401,7 @@ def user_infos():
 @validate_json
 def updategroup():
     # admin_password = get_config()['UPDATE_PWD']
-    admin_password = "updatepassword"
+    admin_password = "123456"
     password = request.json['password']
     field = request.json['field']
     value = request.json['value']
@@ -424,7 +424,7 @@ def updategroup():
             for record in res:
                 del record['pwd_hash']
             res = jsonify({'response': res})
-            res.headers 
+            res.headers.set('Access-Control-Allow-Origin', '*') 
             return res
         else :
             return jsonify({"response": "wrong password"}), 400
