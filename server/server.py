@@ -400,7 +400,8 @@ def user_infos():
 @app.route('/updategroup', methods=['POST'])
 @validate_json
 def updategroup():
-    admin_password = get_config()['UPDATE_PWD']
+    # admin_password = get_config()['UPDATE_PWD']
+    admin_password = "updatepassword"
     password = request.json['password']
     field = request.json['field']
     value = request.json['value']
