@@ -4,7 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from config import get_config
 
 engine = create_engine(
-    'mysql+mysqlconnector://root:my-secret-pw@127.0.0.1/j4u', convert_unicode=True, pool_recycle=600)
+    'mysql+mysqlconnector://{user}:{pwd}@127.0.0.1/j4u'.format(
+        user=get_config()['mysql_user'], pwd=get_config()['mysql_pwd']),
+    convert_unicode=True,
+    pool_recycle=600)
 db_session = scoped_session(
     sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()

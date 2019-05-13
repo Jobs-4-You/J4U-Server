@@ -5,7 +5,7 @@ dev = {
     'url': 'http://127.0.0.1:5000',
     'app_url': 'http://127.0.0.1:8080',
     'host': '0.0.0.0',
-    'port': 5000
+    'port': 5000,
 }
 
 prod = {
@@ -29,5 +29,7 @@ def get_config():
     conf['salt'] = os.environ.get('SALT')
     conf['jwt_key'] = os.environ.get('JWT_KEY')
     conf['admin_pword']= os.environ.get('ADMIN_PWORD')
+    conf['mysql_user']= os.environ.get('MYSQL_USER')
+    conf['mysql_pwd']= os.environ.get('MYSQL_PWD')
 
     return conf
