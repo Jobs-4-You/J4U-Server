@@ -38,13 +38,16 @@ def process(df_main, df_cruiser):
     df_main = df_main.loc[df_main['Finished'] != '0', :]
     df_cruiser = df_cruiser.loc[df_cruiser['Finished'] != '0', :]
     cols_SC = [(x, df_main[x].iloc[0]) for x in df_main.columns if 'SC' in x]
-    df_main = df_main.rename(columns={before: after for before, after in cols_SC})
+    df_main = df_main.rename(
+        columns={before: after
+                 for before, after in cols_SC})
     df_main = df_main.iloc[2:]
-    df_cruiser = df_cruiser.iloc[2:]
     df_main = df_main.reset_index().set_index('ID')
     df_cruiser = df_cruiser.reset_index().set_index('ID')
+    df_cruiser = df_cruiser.dropna()
     df = pd.concat([df_main, df_cruiser], axis=1, join='inner')
-    df['Sc_Fluency'] = df['COG_VF1'].str.split().apply(len) + df['COG_VF2'].str.split().apply(len)
+    df['Sc_Fluency'] = df['COG_VF1'].str.split().apply(
+        len) + df['COG_VF2'].str.split().apply(len)
     df['Sc_Fluency'] *= 0.5
 
     df = df[list(name_to_var.keys())]
@@ -54,7 +57,6 @@ def process(df_main, df_cruiser):
     df = df.reset_index()
     df = df.fillna(3)
     return df
-
 
 
 def get_surveys():
