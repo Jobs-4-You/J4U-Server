@@ -38,6 +38,8 @@ def init_db():
         surveyId='81224',
         verified=True,
         blocked=False,
+        fixedOldJobValue=False,
+        fixedAlphaBeta=False,
         group='123456')
     other = User(
         firstName='other',

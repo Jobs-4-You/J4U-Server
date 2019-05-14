@@ -49,7 +49,7 @@ class User(UserMixin, Base):
     pwd_hash = Column(String(256))
     plastaId = Column(String(16), unique=True)
     formDone = Column(Boolean(), default=False)
-    surveyId = Column(String(50))
+    surveyId = Column(String(10))
     verified = Column(Boolean(), default=False)
     alpha = Column(Float, nullable=True, default=50)
     beta = Column(Float, nullable=True, default=50)
@@ -57,9 +57,11 @@ class User(UserMixin, Base):
     oldJobLabel = Column(String(100), nullable=True)
     features = relationship(Features, uselist=False)
     blocked = Column(Boolean(), default=False)
+    fixedOldJobValue = Column(Boolean(), default=False)
+    fixedAlphaBeta = Column(Boolean(), default=False)
     group = Column(String(16))
 
-    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=False, group=None):
+    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=False, group=None, fixedAlphaBeta=False, fixedOldJobValue=False):
         self.firstName = firstName
         self.lastName = lastName
         self.birthDate = birthDate
@@ -70,9 +72,11 @@ class User(UserMixin, Base):
         self.formDone = formDone
         self.verified = verified
         self.blocked = blocked
+        self.fixedOldJobValue = fixedOldJobValue
+        self.fixedAlphaBeta = fixedAlphaBeta
         self.group = group
         if surveyId is None:
-            self.surveyId = binascii.b2a_hex(os.urandom(16))
+            self.surveyId = binascii.b2a_hex(os.urandom(4))
         else:
             self.surveyId = surveyId
 
