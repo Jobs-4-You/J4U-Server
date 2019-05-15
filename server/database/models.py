@@ -47,7 +47,7 @@ class User(UserMixin, Base):
     email = Column(String(120), unique=True)
     phone = Column(String(16), unique=True)
     pwd_hash = Column(String(256))
-    plastaId = Column(String(16), unique=True)
+    plastaId = Column(String(16), unique=False)
     formDone = Column(Boolean(), default=False)
     surveyId = Column(String(10))
     verified = Column(Boolean(), default=False)
