@@ -1,4 +1,4 @@
-import binascii, os
+from random import randint
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Date
 from sqlalchemy.orm import relationship
@@ -76,7 +76,7 @@ class User(UserMixin, Base):
         self.fixedAlphaBeta = fixedAlphaBeta
         self.group = group
         if surveyId is None:
-            self.surveyId = binascii.b2a_hex(os.urandom(4))
+            self.surveyId = randint(10000000,99999999)
         else:
             self.surveyId = surveyId
 
