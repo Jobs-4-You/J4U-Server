@@ -11,25 +11,27 @@ from database.database import db_session
 from database.models import User, Features
 
 
-def min_max_scaler(domain, target, x):
+def min_max_scaler(domain, target, x, inverse=False):
     x = np.clip(x, domain[0], domain[1])
     normalized = (x - domain[0]) / (domain[1] - domain[0])
     res = normalized * (target[1] - target[0]) + target[0]
+    if inverse:
+        res = target[1] - res + target[0]
     return res
 
 
 name_to_var = {
-    "Sc_Fluency": ("var1", partial(min_max_scaler, [0, 30], [1, 5])),
-    "Sc_Induc_Reas": ("var2", partial(min_max_scaler, [0, 8], [1, 5])),
-    "score_matrices": ("var3", partial(min_max_scaler, [0, 1], [1, 5])),
-    "Sc_WM": ("var4", partial(min_max_scaler, [0, 12], [1, 5])),
-    "Sc_MOY_RT": ("var5", partial(min_max_scaler, [0, 5], [1, 5])),
-    "Sc_Verbal_Com": ("var6", partial(min_max_scaler, [0, 48], [1, 5])),
-    "score_PM": ("var7", partial(min_max_scaler, [0, 1], [1, 5])),
-    "score_metacog": ("var8", partial(min_max_scaler, [0, 1], [1, 5])),
+    "Sc_Fluency": ("var1", partial(min_max_scaler, [0, 30], [1, 7])),
+    "Sc_Induc_Reas": ("var2", partial(min_max_scaler, [0, 8], [1, 7])),
+    "score_matrices": ("var3", partial(min_max_scaler, [0, 1], [1, 7])),
+    "Sc_WM": ("var4", partial(min_max_scaler, [0, 12], [1, 7])),
+    "Sc_MOY_RT": ("var5", partial(min_max_scaler, [0, 5], [1, 7], inverse=True)),
+    "Sc_Verbal_Com": ("var6", partial(min_max_scaler, [0, 48], [1, 7])),
+    "score_PM": ("var7", partial(min_max_scaler, [0, 1], [1, 7])),
+    "score_metacog": ("var8", partial(min_max_scaler, [0, 1], [1, 7], inverse=True)),
     "Sc_Leader": ("var9", partial(min_max_scaler, [6, 24], [1, 5])),
     "Sc_Self_cont": ("var10", partial(min_max_scaler, [13, 65], [1, 5])),
-    "Sc_Stress_Tol": ("var11", partial(min_max_scaler, [0, 40], [1, 5])),
+    "Sc_Stress_Tol": ("var11", partial(min_max_scaler, [0, 40], [1, 5], inverse=True)),
     "Sc_Adapt": ("var12", partial(min_max_scaler, [8, 40], [1, 5])),
 }
 
@@ -164,3 +166,4 @@ def get_vars(user):
         user.features.var11,
         user.features.var12,
     ]
+
