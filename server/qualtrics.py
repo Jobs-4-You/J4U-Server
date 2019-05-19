@@ -52,9 +52,9 @@ def process(df_main, df_cruiser):
     df_main = df_main.loc[~df_main.index.duplicated(keep="first")]
     df_cruiser = df_cruiser.loc[~df_cruiser.index.duplicated(keep="first")]
     df = pd.concat([df_main, df_cruiser], axis=1, join="inner")
-    df["Sc_Fluency"] = df["COG_VF1"].str.split().apply(len) + df[
-        "COG_VF2"
-    ].str.split().apply(len)
+    df["Sc_Fluency"] = df["COG_VF1"].str.split().apply(
+        lambda x: len(x) if type(x) == list else x
+    ) + df["COG_VF2"].str.split().apply(lambda x: len(x) if type(x) == list else x)
     df["Sc_Fluency"] *= 0.5
 
     df = df[list(name_to_var.keys())]
