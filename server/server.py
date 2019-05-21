@@ -401,16 +401,14 @@ def user_infos():
 @validate_json
 def updategroup():
     # admin_password = get_config()['UPDATE_PWD']
-    admin_password = "123456"
+    admin_password = 'updatepassword'
     password = request.json['password']
     field = request.json['field']
     value = request.json['value']
     group = request.json['group']
     if password and field and value and group:
         if password == admin_password :
-            engine = create_engine(
-                'mysql+mysqlconnector://root:my-secret-pw@127.0.0.1/j4u', convert_unicode=True, pool_recycle=600)
-            # Temporarily turning off safe updates as group is not a key column
+            engine = create_engine('mysql+mysqlconnector://{user}:{pwd}@127.0.0.1/j4u'.format(user=get_config()['mysql_user'], pwd=get_config()['mysql_pwd']),convert_unicode=True,pool_recycle=600)
             update_query = """UPDATE `j4u`.`user`
                     SET `{}` = '{}'
                     WHERE (`group` = '{}')""".format(field,value,group)
