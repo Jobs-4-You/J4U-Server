@@ -35,7 +35,7 @@ def init_db():
         email='admin@example.com',
         pwd='jdida',
         plastaId='a111111',
-        surveyId='81224',
+        surveyId='40340304',
         verified=True,
         blocked=False,
         fixedOldJobValue=False,
