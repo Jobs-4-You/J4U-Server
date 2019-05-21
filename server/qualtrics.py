@@ -63,6 +63,7 @@ def process(df_main, df_cruiser):
         df[col] = df[col].apply(mapper)
     df = df.reset_index()
     df = df.fillna(3)
+    print(df['ID'])
     return df
 
 
@@ -166,4 +167,3 @@ def get_vars(user):
         user.features.var11,
         user.features.var12,
     ]
-

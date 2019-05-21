@@ -20,8 +20,8 @@ def init_logdb():
 
     if get_config()['mode'] == 'dev':
         activities.drop()
-        jobs.drop()
 
+    jobs.drop()
     with open('jobs.json') as f:
         data = json.load(f)
 
