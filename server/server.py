@@ -403,10 +403,11 @@ def updategroup():
     # admin_password = get_config()['UPDATE_PWD']
     admin_password = 'updatepassword'
     password = request.json['password']
+    allowedFields = ["fixedAlphaBeta","fixedOldJobValue","blocked"]
     field = request.json['field']
     value = request.json['value']
     group = request.json['group']
-    if password and field and value and group:
+    if password and field and value and group and field in allowedFields :
         if password == admin_password :
             engine = create_engine('mysql+mysqlconnector://{user}:{pwd}@127.0.0.1/j4u'.format(user=get_config()['mysql_user'], pwd=get_config()['mysql_pwd']),convert_unicode=True,pool_recycle=600)
             update_query = """UPDATE `j4u`.`user`
@@ -427,6 +428,30 @@ def updategroup():
         else :
             return jsonify({"response": "wrong password"}), 400
     return jsonify({"response": "error"}), 400
+
+@app.route('/listusers', methods=['POST'])
+@validate_json
+def listusers():
+    # admin_password = get_config()['UPDATE_PWD']
+    admin_password = 'updatepassword'
+    password = request.json['password']
+    group = request.json['group']
+    if password == admin_password :
+        engine = create_engine('mysql+mysqlconnector://{user}:{pwd}@127.0.0.1/j4u'.format(user=get_config()['mysql_user'], pwd=get_config()['mysql_pwd']),convert_unicode=True,pool_recycle=600)
+        select_query = "SELECT * FROM j4u.user"
+        if group :
+            select_query += " WHERE `group` = '{}'".format(group)
+        with engine.connect() as con:
+            response = con.execute(select_query)
+            con.close()
+        res = [dict(row) for row in response]
+        for record in res:
+            del record['pwd_hash']
+        res = jsonify({'response': res})
+        res.headers.set('Access-Control-Allow-Origin', '*') 
+        return res
+    else :
+        return jsonify({"response": "wrong password"}), 400
 
 if __name__ == "__main__":
     init_db()
