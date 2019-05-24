@@ -56,12 +56,12 @@ class User(UserMixin, Base):
     oldJobValue = Column(Integer, nullable=True)
     oldJobLabel = Column(String(100), nullable=True)
     features = relationship(Features, uselist=False)
-    blocked = Column(Boolean(), default=False)
+    blocked = Column(Boolean(), default=True)
     fixedOldJobValue = Column(Boolean(), default=False)
     fixedAlphaBeta = Column(Boolean(), default=False)
     group = Column(String(16))
 
-    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=False, group=None, fixedAlphaBeta=False, fixedOldJobValue=False):
+    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=True, group=None, fixedAlphaBeta=False, fixedOldJobValue=False):
         self.firstName = firstName
         self.lastName = lastName
         self.birthDate = birthDate
