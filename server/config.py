@@ -31,5 +31,8 @@ def get_config():
     conf["admin_pword"] = os.environ.get("ADMIN_PWORD")
     conf["mysql_user"] = os.environ.get("MYSQL_USER")
     conf["mysql_pwd"] = os.environ.get("MYSQL_PWD")
+    conf["mongo_user"] = os.environ.get("MONGO_USER")
+    conf["mongo_pwd"] = os.environ.get("MONGO_PWD")
+    conf["update_pwd"] = os.environ.get("UPDATE_PWD")
 
     return conf
