@@ -136,11 +136,26 @@ def send_verification():
     current_user = get_current_user()
     url_conf = generate_confirmation_token(current_user.email)
     msg = Message(
-        'J4U: Activation de compte :',
+        'Validation de votre inscription à J4U',
         sender='j4u@unil.ch',
         recipients=[current_user.email])
-    msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
-        url_conf)
+    msg.html = '''
+                <p>
+                Bonjour,
+                </p>
+                <p>
+                Nous vous remercions pour votre participation au projet « Job For You » (J4U).
+                </p>
+                <p>
+                Suite à votre inscription, voici un email de confirmation. Afin de valider votre compte, il vous suffit de cliquer sur le lien suivant :
+                </p>
+                <p>
+                <a href="{}">Cliquez ici pour confirmer votre adresse email</a>
+                </p>
+                <p>
+                L’équipe J4U
+                </p>
+                '''.format(url_conf)
     mail.send(msg)
     return jsonify(success=True)
 
@@ -218,11 +233,26 @@ def signup():
     # Send a verification mail
     url_conf = generate_confirmation_token(form['email'])
     msg = Message(
-        'J4U: Activation de compte :',
+        'Validation de votre inscription à J4U',
         sender='j4u@unil.ch',
         recipients=[form['email']])
-    msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
-        url_conf)
+    msg.html = '''
+                <p>
+                Bonjour,
+                </p>
+                <p>
+                Nous vous remercions pour votre participation au projet « Job For You » (J4U).
+                </p>
+                <p>
+                Suite à votre inscription, voici un email de confirmation. Afin de valider votre compte, il vous suffit de cliquer sur le lien suivant :
+                </p>
+                <p>
+                <a href="{}">Cliquez ici pour confirmer votre adresse email</a>
+                </p>
+                <p>
+                L’équipe J4U
+                </p>
+                '''.format(url_conf)
     mail.send(msg)
     res = jsonify(success=True)
     return res
