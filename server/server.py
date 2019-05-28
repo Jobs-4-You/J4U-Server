@@ -51,7 +51,7 @@ app.config.update(
 )
 
 mail = Mail(app)
-#with mail.connect() as conn:
+# with mail.connect() as conn:
 #    print(conn)
 
 
@@ -111,7 +111,7 @@ def shutdown_session(exception=None):
 @app.route("/verify", methods=["GET"])
 def verify():
     token = request.args.get("token")
-    email = confirm_token(token)
+    email = confirm_token(token, expiration=3600*24)
     if email:
         user = User.query.filter_by(email=email).first()
         user.verified = True
@@ -148,7 +148,7 @@ def send_verification():
         sender="j4u@unil.ch",
         recipients=[current_user.email],
     )
-    msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email</a>'.format(
+    msg.html = '<a href="{}">Cliquez ici pour confirmer votre adresse email (ce lien est valable pendant 24 heures)</a>'.format(
         url_conf
     )
     mail.send(msg)
