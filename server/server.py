@@ -155,7 +155,7 @@ def send_verification():
                 Nous vous remercions pour votre participation au projet « Job For You » (J4U).
                 </p>
                 <p>
-                Suite à votre inscription, voici un email de confirmation. Afin de valider votre compte, il vous suffit de cliquer sur le lien suivant :
+                Suite à votre inscription, voici un email de confirmation. Afin de valider votre compte, il vous suffit de cliquer sur le lien suivant (qui n’est actif que quelques jours) :
                 </p>
                 <p>
                 <a href="{}">Cliquez ici pour confirmer votre adresse email</a>
@@ -264,7 +264,7 @@ def signup():
                 Nous vous remercions pour votre participation au projet « Job For You » (J4U).
                 </p>
                 <p>
-                Suite à votre inscription, voici un email de confirmation. Afin de valider votre compte, il vous suffit de cliquer sur le lien suivant :
+                Suite à votre inscription, voici un email de confirmation. Afin de valider votre compte, il vous suffit de cliquer sur le lien suivant (qui n’est actif que quelques jours) :
                 </p>
                 <p>
                 <a href="{}">Cliquez ici pour confirmer votre adresse email</a>
