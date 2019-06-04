@@ -19,6 +19,8 @@ def add_meta(obj):
 
     if current_user :
         obj['USER'] = current_user.email
+    else:
+        obj['USER'] = 'Anonymous'
 
     return obj
 
@@ -45,3 +47,4 @@ def track_recommendation(alpha, previous_job, beta, locationValue):
 def track_inapp(obj):
     obj = add_meta(obj)
     activities.insert_one(obj)
+    print(obj)
