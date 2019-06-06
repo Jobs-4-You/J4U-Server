@@ -225,6 +225,7 @@ def login():
 def signup():
     form = request.json
     new_user = User(
+        civilite=form["civilite"],
         firstName=form["firstName"],
         lastName=form["lastName"],
         birthDate=form["birthDate"],
@@ -284,6 +285,7 @@ def signup():
 def update():
     form = request.json
     current_user = get_current_user()
+    current_user.civilite = form["civilite"]
     current_user.firstName = form["firstName"]
     current_user.lastName = form["lastName"]
     current_user.birthDate = form["birthDate"]

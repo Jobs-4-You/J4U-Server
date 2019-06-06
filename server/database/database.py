@@ -28,6 +28,7 @@ def init_db():
 
     from database.models import User
     admin = User(
+        civilite='M',
         firstName='admin',
         lastName='nimda',
         birthDate='2019-01-01',
@@ -42,6 +43,7 @@ def init_db():
         fixedAlphaBeta=False,
         group='123456')
     other = User(
+        civilite='M',
         firstName='other',
         lastName='nimda',
         birthDate='2019-01-01',
@@ -52,6 +54,7 @@ def init_db():
         surveyId='445511',
         verified=True)
     ather = User(
+        civilite='M',
         firstName='ather',
         lastName='nimda',
         birthDate='2019-01-01',

@@ -41,6 +41,7 @@ class Features(Base):
 class User(UserMixin, Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
+    civilite = Column(String(4))
     firstName = Column(String(50))
     lastName = Column(String(50))
     birthDate = Column(Date())
@@ -61,7 +62,8 @@ class User(UserMixin, Base):
     fixedAlphaBeta = Column(Boolean(), default=False)
     group = Column(String(16))
 
-    def __init__(self, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=True, group=None, fixedAlphaBeta=False, fixedOldJobValue=False):
+    def __init__(self, civilite=None, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=True, group=None, fixedAlphaBeta=False, fixedOldJobValue=False):
+        self.civilite = civilite
         self.firstName = firstName
         self.lastName = lastName
         self.birthDate = birthDate
@@ -87,5 +89,5 @@ class User(UserMixin, Base):
         return check_password_hash(self.pwd_hash, password)
 
     def __repr__(self):
-        return '<User {} {} {} {} {} {} {} {} {}>'.format(self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate, self.group)
+        return '<User {} {} {} {} {} {} {} {} {} {}>'.format(self.civilite, self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate, self.group)
 

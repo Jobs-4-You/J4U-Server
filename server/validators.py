@@ -19,6 +19,9 @@ signup_schema = {
     'additionalProperties':
     False,
     'properties': {
+        'civilite': {
+            'type': 'string',
+        },
         'firstName': {
             'type': 'string',
         },
@@ -47,6 +50,6 @@ signup_schema = {
         }
     },
     'required': [
-        'firstName', 'lastName', 'phone', 'password', 'email', 'birthDate',
+        'civilite','firstName', 'lastName', 'phone', 'password', 'email', 'birthDate',
     ]
 }
