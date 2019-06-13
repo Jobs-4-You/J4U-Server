@@ -463,7 +463,7 @@ def updategroup():
     # admin_password = get_config()['UPDATE_PWD']
     admin_password = get_config()["update_pwd"]
     password = request.json["password"]
-    allowedFields = ["fixedAlphaBeta", "fixedOldJobValue", "blocked"]
+    allowedFields = ["fixedAlphaBeta", "fixedOldJobValue", "blocked", "group"]
     field = request.json["field"]
     value = request.json["value"]
     group = request.json["group"]
@@ -501,8 +501,7 @@ def updategroup():
 @app.route("/listusers", methods=["POST"])
 @validate_json
 def listusers():
-    # admin_password = get_config()['UPDATE_PWD']
-    admin_password = "updatepassword"
+    admin_password = get_config()['UPDATE_PWD']
     password = request.json["password"]
     group = request.json["group"]
     if password == admin_password:

@@ -41,7 +41,7 @@ def init_db():
         blocked=False,
         fixedOldJobValue=False,
         fixedAlphaBeta=False,
-        group='123456')
+        group='J4UINT_C1NE')
     other = User(
         civilite='M',
         firstName='other',
