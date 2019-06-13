@@ -481,6 +481,10 @@ def updategroup():
                     WHERE (`group` = '{}')""".format(
                 field, value, group
             )
+
+            # if admin changed the group value, look for the new value for group
+            group = value if field == "group"
+
             select_query = "SELECT * FROM j4u.user WHERE `group` = '{}'".format(group)
 
             with engine.connect() as con:
@@ -501,7 +505,7 @@ def updategroup():
 @app.route("/listusers", methods=["POST"])
 @validate_json
 def listusers():
-    admin_password = get_config()['UPDATE_PWD']
+    admin_password = get_config()["update_pwd"]
     password = request.json["password"]
     group = request.json["group"]
     if password == admin_password:
