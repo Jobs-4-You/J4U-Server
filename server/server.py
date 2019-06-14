@@ -483,7 +483,8 @@ def updategroup():
             )
 
             # if admin changed the group value, look for the new value for group
-            group = value if field == "group"
+            if field == "group" :
+                group = value 
 
             select_query = "SELECT * FROM j4u.user WHERE `group` = '{}'".format(group)
 
