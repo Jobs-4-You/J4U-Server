@@ -29,6 +29,7 @@ from waitress import serve
 import requests
 import mysql
 import sys
+import pdfkit
 
 app = Flask("J4U-Server")
 app.secret_key = get_config()["app_key"]
@@ -531,6 +532,21 @@ def listusers():
         return res
     else:
         return jsonify({"response": "wrong password"}), 400
+
+@app.route("/certificate", methods=["POST"])
+@validate_json
+def certificate():
+    form = request.form
+    if get_config()["url"] == "http://127.0.0.1:5000" :
+        certificateUrl = "http://localhost:8080/dist/"
+    else :
+        certificateUrl = "https://j4u.unil.ch/"
+
+    certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}".format(form["civilite"], form["jobTitle"], form["firstName"], form["lastName"], form["birthDate"])
+    options = {
+        'javascript-delay':1000
+    }
+    pdfkit.from_url(certificateUrl, 'out.pdf', options=options)
 
 
 if __name__ == "__main__":
