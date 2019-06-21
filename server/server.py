@@ -2,7 +2,7 @@ import json
 import datetime
 import sqlalchemy
 from sqlalchemy import create_engine
-from flask import Flask, request, abort, jsonify, redirect
+from flask import Flask, request, abort, jsonify, redirect, send_file
 from flask_jwt_extended import (
     JWTManager,
     jwt_required,
@@ -536,21 +536,23 @@ def listusers():
 @app.route("/certificate", methods=["POST"])
 @validate_json
 def certificate():
-    form = request.form
+    #form = request.form
+    form = request.json
     if get_config()["url"] == "http://127.0.0.1:5000" :
         certificateUrl = "http://localhost:8080/dist/"
     else :
         certificateUrl = "https://j4u.unil.ch/"
 
-    certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}".format(form["civilite"], form["jobTitle"], form["firstName"], form["lastName"], form["birthDate"])
+    certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}&timestamp={}".format(form["civilite"], form["jobTitle"], form["firstName"], form["lastName"], form["birthDate"], form["timestamp"])
+    print(certificateUrl)
     options = {
         'javascript-delay':1000
     }
-    pdfkit.from_url(certificateUrl, 'out.pdf', options=options)
+    pdfkit.from_url(certificateUrl, '000.pdf', options=options)
+    return send_file('000.pdf', as_attachment=True)
 
 
 if __name__ == "__main__":
     init_db()
     init_logdb()
-    # app.run(host=get_config()['host'], port=get_config()['port'])
     serve(app, host=get_config()["host"], port=get_config()["port"])
