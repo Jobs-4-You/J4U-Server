@@ -441,13 +441,6 @@
     "ISCOTitle": "Professions intermédiaires du travail social"
   },
   {
-    "AVAM": 15067,
-    "BFS": 36101070,
-    "ISCO08": 210,
-    "Title": "Policier militaire",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 15068,
     "BFS": 25706026,
     "ISCO08": 7231,
@@ -586,13 +579,6 @@
     "ISCO08": 5223,
     "Title": "Vendeur, service externe",
     "ISCOTitle": "Vendeurs, magasin"
-  },
-  {
-    "AVAM": 15090,
-    "BFS": 32203039,
-    "ISCO08": 0,
-    "Title": "Employé spécialisé en marketing",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 15091,
@@ -19320,13 +19306,6 @@
     "ISCOTitle": "Gouvernantes et intendants à domicile"
   },
   {
-    "AVAM": 79609,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "stagiaire",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 79610,
     "BFS": 39202044,
     "ISCO08": 5151,
@@ -20405,53 +20384,11 @@
     "ISCOTitle": "Professions juridiques intermédiaires et assimilées"
   },
   {
-    "AVAM": 84000,
-    "BFS": 36104014,
-    "ISCO08": 310,
-    "Title": "Militaires de carrière",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84001,
-    "BFS": 36104009,
-    "ISCO08": 110,
-    "Title": "officier instructeur",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84003,
-    "BFS": 36104001,
-    "ISCO08": 210,
-    "Title": "sous-officier instructeur",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84004,
-    "BFS": 36104024,
-    "ISCO08": 310,
-    "Title": "garde-fortifications",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 84008,
     "BFS": 42504070,
     "ISCO08": 3221,
     "Title": "infirmier militaire",
     "ISCOTitle": "Personnel infirmier (niveau intermédiaire)"
-  },
-  {
-    "AVAM": 84011,
-    "BFS": 36104018,
-    "ISCO08": 110,
-    "Title": "pilote militaire de carrière",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84029,
-    "BFS": 36104011,
-    "ISCO08": 310,
-    "Title": "soldat de carrière",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 84100,
@@ -26901,13 +26838,6 @@
     "ISCOTitle": "Directeurs et gérants, centres sportifs, centres de loisirs et centres culturels"
   },
   {
-    "AVAM": 95208,
-    "BFS": 36104023,
-    "ISCO08": 310,
-    "Title": "chef de place de tir",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 95209,
     "BFS": 46104029,
     "ISCO08": 3421,
@@ -27300,13 +27230,6 @@
     "ISCOTitle": "Matelots de pont et assimilés"
   },
   {
-    "AVAM": 96101,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "professions diverses avec diplôme professionnel",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 96105,
     "BFS": 46105037,
     "ISCO08": 7000,
@@ -27426,34 +27349,6 @@
     "ISCOTitle": "Agents de sécurité"
   },
   {
-    "AVAM": 96200,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "Ecolièrs et étudiants",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 96201,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "écolier",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 96202,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "étudiant",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 96203,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "demandeur d'une place d'apprentissage",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 99601,
     "BFS": 46105122,
     "ISCO08": 9000,
@@ -27480,13 +27375,6 @@
     "ISCO08": 9000,
     "Title": "manoeuvre pour travaux lourds",
     "ISCOTitle": "Matelots de pont et assimilés"
-  },
-  {
-    "AVAM": 99999,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "aucune indication",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100000,
@@ -27566,13 +27454,6 @@
     "ISCOTitle": "Directeurs et gérants, services non classés ailleurs"
   },
   {
-    "AVAM": 100011,
-    "BFS": 32103092,
-    "ISCO08": 0,
-    "Title": "Spécialiste en assurances sociales",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100012,
     "BFS": 29306014,
     "ISCO08": 3118,
@@ -27599,13 +27480,6 @@
     "ISCO08": 3100,
     "Title": "Technicien du spectacle",
     "ISCOTitle": "Annonceurs-présentateurs de radio, de télévision et autres médias"
-  },
-  {
-    "AVAM": 100016,
-    "BFS": 29405159,
-    "ISCO08": 0,
-    "Title": "Spécialiste en protection incendie avec BF",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100017,
@@ -27797,13 +27671,6 @@
     "ISCOTitle": "Vendeurs, magasin"
   },
   {
-    "AVAM": 100046,
-    "BFS": 41103078,
-    "ISCO08": 0,
-    "Title": "Employé d'exploitation",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100047,
     "BFS": 44702076,
     "ISCO08": 3422,
@@ -27816,13 +27683,6 @@
     "ISCO08": 2269,
     "Title": "Spécialiste en activation ES",
     "ISCOTitle": "Spécialistes de la santé non classés ailleurs"
-  },
-  {
-    "AVAM": 100049,
-    "BFS": 23203037,
-    "ISCO08": 0,
-    "Title": "Plâtrier constructeur à sec CFC",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100050,
@@ -27909,20 +27769,6 @@
     "ISCOTitle": "Instructeurs et animateurs de programmes, loisirs et activités de remise en forme"
   },
   {
-    "AVAM": 100062,
-    "BFS": 25601028,
-    "ISCO08": 0,
-    "Title": "Horloger de production CFC",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 100063,
-    "BFS": 25705052,
-    "ISCO08": 0,
-    "Title": "Assistant vernisseur AFP",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100064,
     "BFS": 33304027,
     "ISCO08": 2529,
@@ -27986,13 +27832,6 @@
     "ISCOTitle": "Inspecteurs des douanes et des frontières"
   },
   {
-    "AVAM": 100078,
-    "BFS": 33205034,
-    "ISCO08": 0,
-    "Title": "Spécialiste de commerce international, brev. féd. EP",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100079,
     "BFS": 41103069,
     "ISCO08": 5153,
@@ -28012,13 +27851,6 @@
     "ISCO08": 2212,
     "Title": "Biomédecin",
     "ISCOTitle": "Médecins spécialistes"
-  },
-  {
-    "AVAM": 100082,
-    "BFS": 23204057,
-    "ISCO08": 0,
-    "Title": "Aide-peintre AFP",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100083,
@@ -28054,13 +27886,6 @@
     "ISCO08": 3119,
     "Title": "Technologue en textile CFC",
     "ISCOTitle": "Techniciens des sciences physiques et techniques non classés ailleurs"
-  },
-  {
-    "AVAM": 100088,
-    "BFS": 22104039,
-    "ISCO08": 0,
-    "Title": "Agent en produits textiles AFP",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100089,
@@ -28112,13 +27937,6 @@
     "ISCOTitle": "Agriculteurs et ouvriers qualifiés de l'horticulture et des pépinières"
   },
   {
-    "AVAM": 100096,
-    "BFS": 43104111,
-    "ISCO08": 0,
-    "Title": "Mentor d'entreprise, brev. féd. EP",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100097,
     "BFS": 33101288,
     "ISCO08": 1213,
@@ -28166,13 +27984,6 @@
     "ISCO08": 5132,
     "Title": "Chef de bar",
     "ISCOTitle": "Barmen"
-  },
-  {
-    "AVAM": 100105,
-    "BFS": 34503067,
-    "ISCO08": 0,
-    "Title": "Agent de transports publics CFC",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100106,
@@ -28637,13 +28448,6 @@
     "ISCOTitle": "Professions intermédiaires du travail social"
   },
   {
-    "AVAM": 15067,
-    "BFS": 36101070,
-    "ISCO08": 210,
-    "Title": "Policière militaire",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 15068,
     "BFS": 25706026,
     "ISCO08": 7231,
@@ -28782,13 +28586,6 @@
     "ISCO08": 5223,
     "Title": "Vendeuse, service externe",
     "ISCOTitle": "Vendeurs, magasin"
-  },
-  {
-    "AVAM": 15090,
-    "BFS": 32203039,
-    "ISCO08": 0,
-    "Title": "Employée spécialisée en marketing",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 15091,
@@ -47516,13 +47313,6 @@
     "ISCOTitle": "Gouvernantes et intendants à domicile"
   },
   {
-    "AVAM": 79609,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "stagiaire",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 79610,
     "BFS": 39202044,
     "ISCO08": 5151,
@@ -48601,53 +48391,11 @@
     "ISCOTitle": "Professions juridiques intermédiaires et assimilées"
   },
   {
-    "AVAM": 84000,
-    "BFS": 36104014,
-    "ISCO08": 310,
-    "Title": "Militaires de carrière",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84001,
-    "BFS": 36104009,
-    "ISCO08": 110,
-    "Title": "officière instructrice",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84003,
-    "BFS": 36104001,
-    "ISCO08": 210,
-    "Title": "sous-officière instructrice",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84004,
-    "BFS": 36104024,
-    "ISCO08": 310,
-    "Title": "garde-fortifications",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 84008,
     "BFS": 42504070,
     "ISCO08": 3221,
     "Title": "infirmière militaire",
     "ISCOTitle": "Personnel infirmier (niveau intermédiaire)"
-  },
-  {
-    "AVAM": 84011,
-    "BFS": 36104018,
-    "ISCO08": 110,
-    "Title": "pilote militaire de carrière",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 84029,
-    "BFS": 36104011,
-    "ISCO08": 310,
-    "Title": "soldate de carrière",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 84100,
@@ -55097,13 +54845,6 @@
     "ISCOTitle": "Directeurs et gérants, centres sportifs, centres de loisirs et centres culturels"
   },
   {
-    "AVAM": 95208,
-    "BFS": 36104023,
-    "ISCO08": 310,
-    "Title": "cheffe de place de tir",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 95209,
     "BFS": 46104029,
     "ISCO08": 3421,
@@ -55496,13 +55237,6 @@
     "ISCOTitle": "Matelots de pont et assimilés"
   },
   {
-    "AVAM": 96101,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "professions diverses avec diplôme professionnel",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 96105,
     "BFS": 46105037,
     "ISCO08": 7000,
@@ -55622,34 +55356,6 @@
     "ISCOTitle": "Agents de sécurité"
   },
   {
-    "AVAM": 96200,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "Ecolières et étudiantes",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 96201,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "écolière",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 96202,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "étudiante",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 96203,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "demandeuse d'une place d'apprentissage",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 99601,
     "BFS": 46105122,
     "ISCO08": 9000,
@@ -55676,13 +55382,6 @@
     "ISCO08": 9000,
     "Title": "manoeuvre pour travaux lourds",
     "ISCOTitle": "Matelots de pont et assimilés"
-  },
-  {
-    "AVAM": 99999,
-    "BFS": 0,
-    "ISCO08": 0,
-    "Title": "aucune indication",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100000,
@@ -55762,13 +55461,6 @@
     "ISCOTitle": "Directeurs et gérants, services non classés ailleurs"
   },
   {
-    "AVAM": 100011,
-    "BFS": 32103092,
-    "ISCO08": 0,
-    "Title": "Spécialiste en assurances sociales",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100012,
     "BFS": 29306014,
     "ISCO08": 3118,
@@ -55795,13 +55487,6 @@
     "ISCO08": 3100,
     "Title": "Technicienne du spectacle",
     "ISCOTitle": "Annonceurs-présentateurs de radio, de télévision et autres médias"
-  },
-  {
-    "AVAM": 100016,
-    "BFS": 29405159,
-    "ISCO08": 0,
-    "Title": "Spécialiste en protection incendie avec BF",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100017,
@@ -55993,13 +55678,6 @@
     "ISCOTitle": "Vendeurs, magasin"
   },
   {
-    "AVAM": 100046,
-    "BFS": 41103078,
-    "ISCO08": 0,
-    "Title": "Employée d'exploitation",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100047,
     "BFS": 44702076,
     "ISCO08": 3422,
@@ -56012,13 +55690,6 @@
     "ISCO08": 2269,
     "Title": "Spécialiste en activation ES",
     "ISCOTitle": "Spécialistes de la santé non classés ailleurs"
-  },
-  {
-    "AVAM": 100049,
-    "BFS": 23203037,
-    "ISCO08": 0,
-    "Title": "Plâtrière constructrice à sec CFC",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100050,
@@ -56105,20 +55776,6 @@
     "ISCOTitle": "Instructeurs et animateurs de programmes, loisirs et activités de remise en forme"
   },
   {
-    "AVAM": 100062,
-    "BFS": 25601028,
-    "ISCO08": 0,
-    "Title": "Horlogère de production CFC",
-    "ISCOTitle": "#N/A"
-  },
-  {
-    "AVAM": 100063,
-    "BFS": 25705052,
-    "ISCO08": 0,
-    "Title": "Assistante vernisseuse AFP",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100064,
     "BFS": 33304027,
     "ISCO08": 2529,
@@ -56182,13 +55839,6 @@
     "ISCOTitle": "Inspecteurs des douanes et des frontières"
   },
   {
-    "AVAM": 100078,
-    "BFS": 33205034,
-    "ISCO08": 0,
-    "Title": "Spécialiste de commerce international, brev. féd. EP",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100079,
     "BFS": 41103069,
     "ISCO08": 5153,
@@ -56208,13 +55858,6 @@
     "ISCO08": 2212,
     "Title": "Biomédecin",
     "ISCOTitle": "Médecins spécialistes"
-  },
-  {
-    "AVAM": 100082,
-    "BFS": 23204057,
-    "ISCO08": 0,
-    "Title": "Aide-peintre AFP",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100083,
@@ -56250,13 +55893,6 @@
     "ISCO08": 3119,
     "Title": "Technologue en textile CFC",
     "ISCOTitle": "Techniciens des sciences physiques et techniques non classés ailleurs"
-  },
-  {
-    "AVAM": 100088,
-    "BFS": 22104039,
-    "ISCO08": 0,
-    "Title": "Agent en produits textiles AFP",
-    "ISCOTitle": "#N/A"
   },
   {
     "AVAM": 100089,
@@ -56308,13 +55944,6 @@
     "ISCOTitle": "Agriculteurs et ouvriers qualifiés de l'horticulture et des pépinières"
   },
   {
-    "AVAM": 100096,
-    "BFS": 43104111,
-    "ISCO08": 0,
-    "Title": "Mentor d'entreprise, brev. féd. EP",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100097,
     "BFS": 33101288,
     "ISCO08": 1213,
@@ -56364,13 +55993,6 @@
     "ISCOTitle": "Barmen"
   },
   {
-    "AVAM": 100105,
-    "BFS": 34503067,
-    "ISCO08": 0,
-    "Title": "Agent de transports publics CFC",
-    "ISCOTitle": "#N/A"
-  },
-  {
     "AVAM": 100106,
     "BFS": 23212007,
     "ISCO08": 7120,
@@ -56391,4 +56013,4 @@
     "Title": "Cheffe de Réception",
     "ISCOTitle": "Réceptionnistes, hôtellerie"
   }
-]
+ ]
