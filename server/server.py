@@ -30,6 +30,7 @@ import requests
 import mysql
 import sys
 import pdfkit
+import os
 
 app = Flask("J4U-Server")
 app.secret_key = get_config()["app_key"]
@@ -538,10 +539,10 @@ def listusers():
 def certificate():
     #form = request.form
     form = request.json
-    if get_config()["url"] == "http://127.0.0.1:5000" :
-        certificateUrl = "http://localhost:8080/dist/"
-    else :
+    if os.environ.get("ENV") == "prod":
         certificateUrl = "https://j4u.unil.ch/"
+    else :
+        certificateUrl = "http://localhost:8080/dist/"
 
     certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}&timestamp={}".format(form["civilite"], form["jobTitle"], form["firstName"], form["lastName"], form["birthDate"], form["timestamp"])
     print(certificateUrl)
