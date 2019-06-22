@@ -546,7 +546,7 @@ def certificate():
     certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}&timestamp={}".format(form["civilite"], form["jobTitle"], form["firstName"], form["lastName"], form["birthDate"], form["timestamp"])
     print(certificateUrl)
     options = {
-        'javascript-delay':1000
+        'javascript-delay':200
     }
     pdfkit.from_url(certificateUrl, '000.pdf', options=options)
     return send_file('000.pdf', as_attachment=True)
