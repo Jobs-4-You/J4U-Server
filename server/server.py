@@ -338,8 +338,8 @@ def track():
 def job_props():
     current_user = get_current_user()
     job = request.args.get("job")
-    if not job:
-        job = ""
+    if not job or len(job) < 3:
+        return jsonify({})
     res = search(job)
     return jsonify(res)
 
@@ -485,7 +485,7 @@ def updategroup():
 
             # if admin changed the group value, look for the new value for group
             if field == "group" :
-                group = value 
+                group = value
 
             select_query = "SELECT * FROM j4u.user WHERE `group` = '{}'".format(group)
 

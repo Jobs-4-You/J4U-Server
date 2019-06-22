@@ -52,7 +52,8 @@ def init_db():
         pwd='jdida',
         plastaId='009',
         surveyId='445511',
-        verified=True)
+        verified=True,
+        group='other-other')
     ather = User(
         civilite='M',
         firstName='ather',
@@ -63,7 +64,8 @@ def init_db():
         pwd='jdida',
         plastaId='003',
         surveyId='9021988',
-        verified=True)
+        verified=True,
+        group='ather-ather')
     try:
         db_session.add_all([admin, other, ather])
         db_session.commit()
