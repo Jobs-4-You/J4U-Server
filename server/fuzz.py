@@ -8,7 +8,6 @@ def search(job):
         {"Title": 1, "ISCO08": 1, "AVAM": 1, "_id": False},
     ).limit(15)
     res = list(cursor)
-    print(res)
     for r in res:
         r["Title"] = r["Title"].capitalize()
     return res
