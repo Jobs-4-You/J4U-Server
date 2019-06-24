@@ -1,4 +1,6 @@
+appdirs==1.4.3
 attrs==19.1.0
+black==19.3b0
 blinker==1.4
 certifi==2018.11.29
 chardet==3.0.4
@@ -19,6 +21,7 @@ MarkupSafe==1.0
 mysql-connector-python==8.0.15
 numpy==1.15.4
 pandas==0.23.4
+pdfkit==0.6.1
 protobuf==3.6.1
 PyJWT==1.4.2
 pymongo==3.7.2
@@ -33,6 +36,7 @@ six==1.11.0
 SQLAlchemy==1.2.12
 strict-rfc3339==0.7
 texttable==1.6.0
+toml==0.10.0
 ua-parser==0.8.0
 urllib3==1.24.1
 waitress==1.2.1
