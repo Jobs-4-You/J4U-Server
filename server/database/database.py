@@ -51,9 +51,10 @@ def init_db():
         email='other@example.com',
         pwd='jdida',
         plastaId='009',
-        surveyId='445511',
+        surveyId='40340304',
         verified=True,
-        group='other-other')
+        blocked=False,
+        group='CGTINT_C1NE')
     ather = User(
         civilite='M',
         firstName='ather',

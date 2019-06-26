@@ -378,6 +378,18 @@ def linkqualitrics():
 def positions():
     data = request.json
     job = request.args.get("avam")
+    oldJobLabel = data["oldJobLabel"]
+
+    # This parameter is only received by control-group searches
+    # Under the J4U condition, oldJobValue and oldJobLabel are persisted on recom
+    # Since control bypasses recom, this parameter is persisted here
+    if oldJobLabel :
+        oldjob = data["codes"]
+        current_user = get_current_user()
+        current_user.oldJobValue = oldjob[0]["value"]
+        current_user.oldJobLabel = data["oldJobLabel"]
+        db_session.commit()
+
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Connection": "keep-alive",
