@@ -2,7 +2,7 @@ import json
 import datetime
 import sqlalchemy
 from sqlalchemy import create_engine
-from flask import Flask, request, abort, jsonify, redirect, send_file
+from flask import Flask, request, abort, jsonify, redirect, send_file, render_template
 from flask_jwt_extended import (
     JWTManager,
     jwt_required,
@@ -29,7 +29,7 @@ from waitress import serve
 import requests
 import mysql
 import sys
-import pdfkit
+from weasyprint import HTML
 import os
 
 app = Flask("J4U-Server")
@@ -557,11 +557,20 @@ def certificate():
         certificateUrl = "http://localhost:8080/dist/"
 
     certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}&timestamp={}".format(form["civilite"], form["jobTitle"], form["firstName"], form["lastName"], form["birthDate"], form["timestamp"])
-    print(certificateUrl)
-    options = {
-        'javascript-delay':200
+    
+    templateData = {
+        'civilite': form["civilite"],
+        'jobTitle': form["jobTitle"],
+        'firstName': form["firstName"],
+        'lastName': form["lastName"],
+        'birthDate': form["birthDate"],
+        'timestamp': form["timestamp"],
+        'today': form["today"],
+        'server': form["server"]
     }
-    pdfkit.from_url(certificateUrl, '000.pdf', options=options)
+
+    certificate = render_template("certificate.html", **templateData)
+    HTML(string=certificate).write_pdf('000.pdf')
     return send_file('000.pdf', as_attachment=True)
 
 
