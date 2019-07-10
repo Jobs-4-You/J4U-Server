@@ -1,8 +1,18 @@
 import json
 import datetime
 import sqlalchemy
+import pandas as pd
 from sqlalchemy import create_engine
-from flask import Flask, request, abort, jsonify, redirect, send_file, render_template
+from flask import (
+    Flask,
+    Response,
+    request,
+    abort,
+    jsonify,
+    redirect,
+    send_file,
+    render_template,
+)
 from flask_jwt_extended import (
     JWTManager,
     jwt_required,
@@ -20,7 +30,7 @@ from qualtrics import retrieve_all, get_vars
 from config import get_config
 from itsdangerous import URLSafeTimedSerializer
 from tracking import track_login, track_recommendation, track_inapp
-from logdb.database import init_logdb
+from logdb.database import init_logdb, activities
 from fuzz import search
 from decorators import validate_json, validate_schema
 from validators import login_schema, signup_schema
@@ -113,7 +123,7 @@ def shutdown_session(exception=None):
 @app.route("/verify", methods=["GET"])
 def verify():
     token = request.args.get("token")
-    email = confirm_token(token, expiration=3600*24)
+    email = confirm_token(token, expiration=3600 * 24)
     if email:
         user = User.query.filter_by(email=email).first()
         user.verified = True
@@ -146,10 +156,11 @@ def send_verification():
     current_user = get_current_user()
     url_conf = generate_confirmation_token(current_user.email)
     msg = Message(
-        'Validation de votre inscription à J4U',
-        sender='j4u@unil.ch',
-        recipients=[current_user.email])
-    msg.html = '''
+        "Validation de votre inscription à J4U",
+        sender="j4u@unil.ch",
+        recipients=[current_user.email],
+    )
+    msg.html = """
                 <p>
                 Bonjour,
                 </p>
@@ -165,7 +176,9 @@ def send_verification():
                 <p>
                 L’équipe J4U
                 </p>
-                '''.format(url_conf)
+                """.format(
+        url_conf
+    )
     mail.send(msg)
     return jsonify(success=True)
 
@@ -256,10 +269,11 @@ def signup():
     # Send a verification mail
     url_conf = generate_confirmation_token(form["email"])
     msg = Message(
-        'Validation de votre inscription à J4U',
-        sender='j4u@unil.ch',
-        recipients=[form['email']])
-    msg.html = '''
+        "Validation de votre inscription à J4U",
+        sender="j4u@unil.ch",
+        recipients=[form["email"]],
+    )
+    msg.html = """
                 <p>
                 Bonjour,
                 </p>
@@ -275,7 +289,9 @@ def signup():
                 <p>
                 L’équipe J4U
                 </p>
-                '''.format(url_conf)
+                """.format(
+        url_conf
+    )
     mail.send(msg)
     res = jsonify(success=True)
     return res
@@ -383,7 +399,7 @@ def positions():
     # This parameter is only received by control-group searches
     # Under the J4U condition, oldJobValue and oldJobLabel are persisted on recom
     # Since control bypasses recom, this parameter is persisted here
-    if oldJobLabel :
+    if oldJobLabel:
         oldjob = data["codes"]
         current_user = get_current_user()
         current_user.oldJobValue = oldjob[0]["value"]
@@ -497,7 +513,7 @@ def updategroup():
             )
 
             # if admin changed the group value, look for the new value for group
-            if field == "group" :
+            if field == "group":
                 group = value
 
             select_query = "SELECT * FROM j4u.user WHERE `group` = '{}'".format(group)
@@ -546,35 +562,57 @@ def listusers():
     else:
         return jsonify({"response": "wrong password"}), 400
 
+
 @app.route("/certificate", methods=["POST"])
 @validate_json
 def certificate():
-    #form = request.form
+    # form = request.form
     form = request.json
     if os.environ.get("ENV") == "prod":
         certificateUrl = "https://j4u.unil.ch/"
-    else :
+    else:
         certificateUrl = "http://localhost:8080/dist/"
 
-    certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}&timestamp={}".format(form["civilite"], form["jobTitle"], form["firstName"], form["lastName"], form["birthDate"], form["timestamp"])
-    
+    certificateUrl += "certificate.html?civilite={}&jobTitle={}&firstName={}&lastName={}&birthDate={}&timestamp={}".format(
+        form["civilite"],
+        form["jobTitle"],
+        form["firstName"],
+        form["lastName"],
+        form["birthDate"],
+        form["timestamp"],
+    )
+
     templateData = {
-        'civilite': form["civilite"],
-        'jobTitle': form["jobTitle"],
-        'firstName': form["firstName"],
-        'lastName': form["lastName"],
-        'birthDate': form["birthDate"],
-        'timestamp': form["timestamp"],
-        'today': form["today"],
-        'server': form["server"]
+        "civilite": form["civilite"],
+        "jobTitle": form["jobTitle"],
+        "firstName": form["firstName"],
+        "lastName": form["lastName"],
+        "birthDate": form["birthDate"],
+        "timestamp": form["timestamp"],
+        "today": form["today"],
+        "server": form["server"],
     }
 
     certificate = render_template("certificate.html", **templateData)
-    HTML(string=certificate).write_pdf('000.pdf')
-    return send_file('000.pdf', as_attachment=True)
+    HTML(string=certificate).write_pdf("000.pdf")
+    return send_file("000.pdf", as_attachment=True)
+
+
+@app.route("/utils/dump-activities", methods=["GET"])
+def utils_dump_activities():
+    x = activities.find()
+    x = list(x)
+    df = pd.DataFrame(x)
+    csv = df.to_csv()
+    return Response(
+        csv,
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename=dump.csv"},
+    )
 
 
 if __name__ == "__main__":
     init_db()
     init_logdb()
     serve(app, host=get_config()["host"], port=get_config()["port"])
+
