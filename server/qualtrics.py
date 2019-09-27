@@ -126,7 +126,7 @@ def get_surveys():
 
     z_main = dw_survey(survey_id_main)
     z_cruiser = dw_survey(survey_id_cruiser)
-    data_main = z_main.read("COG-12.csv")
+    data_main = z_main.read("COG-12_Baseline.csv")
     data_cruiser = z_cruiser.read("J4U - CRUISER.csv")
     df_main = pd.read_csv(StringIO(str(data_main, "utf-8")))
     df_cruiser = pd.read_csv(StringIO(str(data_cruiser, "utf-8")))
@@ -167,3 +167,6 @@ def get_vars(user):
         user.features.var11,
         user.features.var12,
     ]
+
+def verify_survey():
+    pass

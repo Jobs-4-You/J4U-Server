@@ -1,11 +1,7 @@
 from jsonschema import validate, ValidationError, draft7_format_checker
 from werkzeug.exceptions import *
 from functools import wraps
-from flask import (
-    current_app,
-    jsonify,
-    request,
-)
+from flask import current_app, jsonify, request
 
 
 def validate_json(f):
@@ -29,7 +25,8 @@ def validate_schema(schema):
                 a = validate(
                     instance=request.json,
                     schema=schema,
-                    format_checker=draft7_format_checker)
+                    format_checker=draft7_format_checker,
+                )
             except ValidationError as e:
                 return jsonify({"msg": e.message}), 400
             return f(*args, **kw)
