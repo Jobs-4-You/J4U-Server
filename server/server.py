@@ -26,7 +26,7 @@ from flask_mail import Mail, Message
 from database.database import init_db, db_session
 from database.models import User
 from recom import recom
-from qualtrics import retrieve_all, get_vars
+from qualtrics import retrieve_all, get_vars, check_completion, update_completion
 from config import get_config
 from itsdangerous import URLSafeTimedSerializer
 from tracking import track_login, track_recommendation, track_inapp
@@ -609,6 +609,33 @@ def utils_dump_activities():
         mimetype="text/csv",
         headers={"Content-disposition": "attachment; filename=dump.csv"},
     )
+
+
+@app.route("/check-completion", methods=["GET"])
+@jwt_required
+def check_comp():
+    current_user = get_current_user()
+    res = check_completion(current_user)
+    return jsonify(res)
+
+
+@app.route("/update-completion", methods=["GET"])
+@jwt_required
+def update_comp():
+    current_user = get_current_user()
+    update_completion(current_user)
+    res = check_completion(current_user)
+    valid = True
+    for x in res:
+        if not x["completed"]:
+            valid == False
+            return jsonify(success=False)
+
+    valid = retrieve_all(current_user.surveyId)
+    if valid:
+        return jsonify(success=True)
+    else:
+        return jsonify(success=False)
 
 
 if __name__ == "__main__":

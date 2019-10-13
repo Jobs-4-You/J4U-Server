@@ -1,15 +1,36 @@
 from random import randint
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, Date, Table
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import Base
 
 
-class Features(Base):
-    __tablename__ = 'features'
+class UserSurvey(Base):
+    __tablename__ = "user_survey"
+    userId = Column(Integer, ForeignKey("user.id"), primary_key=True)
+    surveyId = Column(Integer, ForeignKey("survey.id"), primary_key=True)
+    completed = Column(Boolean, default=False)
+    survey = relationship("Survey")
+
+
+class Survey(Base):
+    __tablename__ = "survey"
     id = Column(Integer, primary_key=True)
-    userId = Column(ForeignKey('user.id'), nullable=False, unique=True)
+    surveyId = Column(String(100), unique=True, nullable=False)
+    surveyTitle = Column(String(100), nullable=False)
+    mandatory = Column(Boolean, nullable=False)
+
+    def __init__(self, surveyId, surveyTitle, mandatory):
+        self.surveyId = surveyId
+        self.surveyTitle = surveyTitle
+        self.mandatory = mandatory
+
+
+class Features(Base):
+    __tablename__ = "features"
+    id = Column(Integer, primary_key=True)
+    userId = Column(ForeignKey("user.id"), nullable=False, unique=True)
     var1 = Column(Float, nullable=False)
     var2 = Column(Float, nullable=False)
     var3 = Column(Float, nullable=False)
@@ -23,7 +44,9 @@ class Features(Base):
     var11 = Column(Float, nullable=False)
     var12 = Column(Float, nullable=False)
 
-    def __init__(self, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11, var12):
+    def __init__(
+        self, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11, var12
+    ):
         self.var1 = var1
         self.var2 = var2
         self.var3 = var3
@@ -39,8 +62,9 @@ class Features(Base):
 
 
 class User(UserMixin, Base):
-    __tablename__ = 'user'
+    __tablename__ = "user"
     id = Column(Integer, primary_key=True)
+    surveyList = relationship("UserSurvey")
     civilite = Column(String(4))
     firstName = Column(String(50))
     lastName = Column(String(50))
@@ -62,7 +86,24 @@ class User(UserMixin, Base):
     fixedAlphaBeta = Column(Boolean(), default=False)
     group = Column(String(16))
 
-    def __init__(self, civilite=None, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=True, group=None, fixedAlphaBeta=False, fixedOldJobValue=False):
+    def __init__(
+        self,
+        civilite=None,
+        firstName=None,
+        lastName=None,
+        email=None,
+        pwd=None,
+        phone=None,
+        plastaId=None,
+        surveyId=None,
+        formDone=False,
+        verified=False,
+        birthDate=None,
+        blocked=True,
+        group=None,
+        fixedAlphaBeta=False,
+        fixedOldJobValue=False,
+    ):
         self.civilite = civilite
         self.firstName = firstName
         self.lastName = lastName
@@ -78,7 +119,7 @@ class User(UserMixin, Base):
         self.fixedAlphaBeta = fixedAlphaBeta
         self.group = group
         if surveyId is None:
-            self.surveyId = randint(10000000,99999999)
+            self.surveyId = randint(10000000, 99999999)
         else:
             self.surveyId = surveyId
 
@@ -89,5 +130,17 @@ class User(UserMixin, Base):
         return check_password_hash(self.pwd_hash, password)
 
     def __repr__(self):
-        return '<User {} {} {} {} {} {} {} {} {} {}>'.format(self.civilite, self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate, self.group)
+        return "<User {} {} {} {} {} {} {} {} {} {}>".format(
+            self.civilite,
+            self.firstName,
+            self.lastName,
+            self.email,
+            self.phone,
+            self.plastaId,
+            self.formDone,
+            self.surveyId,
+            self.verified,
+            self.birthDate,
+            self.group,
+        )
 
