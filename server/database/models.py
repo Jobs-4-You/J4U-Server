@@ -7,9 +7,9 @@ from database.database import Base
 
 
 class Features(Base):
-    __tablename__ = 'features'
+    __tablename__ = "features"
     id = Column(Integer, primary_key=True)
-    userId = Column(ForeignKey('user.id'), nullable=False, unique=True)
+    userId = Column(ForeignKey("user.id"), nullable=False, unique=True)
     var1 = Column(Float, nullable=False)
     var2 = Column(Float, nullable=False)
     var3 = Column(Float, nullable=False)
@@ -23,7 +23,9 @@ class Features(Base):
     var11 = Column(Float, nullable=False)
     var12 = Column(Float, nullable=False)
 
-    def __init__(self, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11, var12):
+    def __init__(
+        self, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11, var12
+    ):
         self.var1 = var1
         self.var2 = var2
         self.var3 = var3
@@ -39,7 +41,7 @@ class Features(Base):
 
 
 class User(UserMixin, Base):
-    __tablename__ = 'user'
+    __tablename__ = "user"
     id = Column(Integer, primary_key=True)
     civilite = Column(String(4))
     firstName = Column(String(50))
@@ -57,12 +59,29 @@ class User(UserMixin, Base):
     oldJobValue = Column(Integer, nullable=True)
     oldJobLabel = Column(String(100), nullable=True)
     features = relationship(Features, uselist=False)
-    blocked = Column(Boolean(), default=True)
+    blocked = Column(Boolean(), default=False)
     fixedOldJobValue = Column(Boolean(), default=False)
     fixedAlphaBeta = Column(Boolean(), default=False)
     group = Column(String(16))
 
-    def __init__(self, civilite=None, firstName=None, lastName=None, email=None, pwd=None, phone=None, plastaId=None, surveyId=None, formDone=False, verified=False, birthDate=None, blocked=True, group=None, fixedAlphaBeta=False, fixedOldJobValue=False):
+    def __init__(
+        self,
+        civilite=None,
+        firstName=None,
+        lastName=None,
+        email=None,
+        pwd=None,
+        phone=None,
+        plastaId=None,
+        surveyId=None,
+        formDone=False,
+        verified=False,
+        birthDate=None,
+        blocked=False,
+        group=None,
+        fixedAlphaBeta=False,
+        fixedOldJobValue=False,
+    ):
         self.civilite = civilite
         self.firstName = firstName
         self.lastName = lastName
@@ -78,7 +97,7 @@ class User(UserMixin, Base):
         self.fixedAlphaBeta = fixedAlphaBeta
         self.group = group
         if surveyId is None:
-            self.surveyId = randint(10000000,99999999)
+            self.surveyId = randint(10000000, 99999999)
         else:
             self.surveyId = surveyId
 
@@ -89,5 +108,17 @@ class User(UserMixin, Base):
         return check_password_hash(self.pwd_hash, password)
 
     def __repr__(self):
-        return '<User {} {} {} {} {} {} {} {} {} {}>'.format(self.civilite, self.firstName, self.lastName, self.email, self.phone, self.plastaId, self.formDone, self.surveyId, self.verified, self.birthDate, self.group)
+        return "<User {} {} {} {} {} {} {} {} {} {}>".format(
+            self.civilite,
+            self.firstName,
+            self.lastName,
+            self.email,
+            self.phone,
+            self.plastaId,
+            self.formDone,
+            self.surveyId,
+            self.verified,
+            self.birthDate,
+            self.group,
+        )
 

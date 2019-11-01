@@ -41,7 +41,7 @@ def init_db():
         blocked=False,
         fixedOldJobValue=False,
         fixedAlphaBeta=False,
-        group='J4UINT_C1NE')
+        group='COG')
     other = User(
         civilite='M',
         firstName='other',
@@ -54,7 +54,7 @@ def init_db():
         surveyId='40340304',
         verified=True,
         blocked=False,
-        group='CGTINT_C1NE')
+        group='J4U')
     ather = User(
         civilite='M',
         firstName='ather',
@@ -66,7 +66,7 @@ def init_db():
         plastaId='003',
         surveyId='9021988',
         verified=True,
-        group='ather-ather')
+        group='CONT')
     try:
         db_session.add_all([admin, other, ather])
         db_session.commit()

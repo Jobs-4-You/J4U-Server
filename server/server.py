@@ -93,6 +93,29 @@ def confirm_token(token, expiration=3600):
     return email
 
 
+def generate_validity_token(date, group):
+    serializer = URLSafeTimedSerializer(app.secret_key)
+    obj = {"date": date, "group": group}
+    token = serializer.dumps(obj, salt=app.salt)
+    return token
+
+
+def confirm_validity_token(token):
+    serializer = URLSafeTimedSerializer(app.secret_key)
+    try:
+        obj = serializer.loads(token, salt=app.salt)
+        date = obj["date"]
+        current = datetime.date.today()
+        date = datetime.datetime.strptime(date, "%d-%m-%Y").date()
+        delta = date - current
+        if delta.days < 0:
+            return False
+        else:
+            return obj
+    except:
+        return False
+
+
 def row2dict(row):
     d = {}
     for column in row.__table__.columns:
@@ -239,6 +262,10 @@ def login():
 @validate_schema(signup_schema)
 def signup():
     form = request.json
+    validity_token = form["validityToken"]
+    obj = confirm_validity_token(validity_token)
+    if not obj:
+        return jsonify({"msg": "Lien d'inscription perime"}), 400
     new_user = User(
         civilite=form["civilite"],
         firstName=form["firstName"],
@@ -248,7 +275,7 @@ def signup():
         phone=form["phone"],
         plastaId=form["plastaId"],
         pwd=form["password"],
-        group=form["group"],
+        group=obj["group"],
     )
     try:
         db_session.add(new_user)
@@ -485,6 +512,19 @@ def user_infos():
     current_user = get_current_user()
     res = row2dict(current_user)
     return jsonify(res)
+
+
+@app.route("/signup-link", methods=["GET"])
+def signup_link():
+    date = request.args["date"]
+    group = request.args["group"]
+    token = generate_validity_token(date, group)
+    obj = confirm_validity_token(token)
+    if not obj:
+        return jsonify(valid=False)
+    date, group = obj["date"], obj["group"]
+    url = "{}/#/signup?token={}".format(get_config()["app_url"], token)
+    return jsonify(url=url, valid=True, date=date, group=group)
 
 
 @app.route("/updategroup", methods=["POST"])

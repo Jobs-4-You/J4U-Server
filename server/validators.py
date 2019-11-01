@@ -47,6 +47,9 @@ signup_schema = {
         },
         'group': {
             'type': 'string'
+        },
+        'validityToken': {
+            'type': 'string'
         }
     },
     'required': [

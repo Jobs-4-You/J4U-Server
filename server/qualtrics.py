@@ -72,6 +72,7 @@ def get_surveys():
     apiToken = "T8o9qNI2J3hnl1TlMEcn2nLShZWW0Kj1ZvyoaLAf"
 
     survey_id_main = "SV_6tmPFThjXFpKg17"
+    # survey_id_main = "SV_emNJjF8ZCQPAyA5"
     survey_id_cruiser = "SV_01bq6G5QXO4Vt1r"
     fileFormat = "csv"
     dataCenter = "eu"
@@ -122,14 +123,12 @@ def get_surveys():
         )
 
         z = zipfile.ZipFile(io.BytesIO(requestDownload.content))
-        return z
+        name = z.namelist()[0]
+        data = z.read(name)
+        return pd.read_csv(StringIO(str(data, "utf-8")))
 
-    z_main = dw_survey(survey_id_main)
-    z_cruiser = dw_survey(survey_id_cruiser)
-    data_main = z_main.read("COG-12_Baseline.csv")
-    data_cruiser = z_cruiser.read("J4U - CRUISER.csv")
-    df_main = pd.read_csv(StringIO(str(data_main, "utf-8")))
-    df_cruiser = pd.read_csv(StringIO(str(data_cruiser, "utf-8")))
+    df_main = dw_survey(survey_id_main)
+    df_cruiser = dw_survey(survey_id_cruiser)
     df = process(df_main, df_cruiser)
     return df
 
@@ -168,5 +167,3 @@ def get_vars(user):
         user.features.var12,
     ]
 
-def verify_survey():
-    pass
