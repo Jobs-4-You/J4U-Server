@@ -10,6 +10,15 @@ from io import StringIO
 from database.database import db_session
 from database.models import User, Features
 
+survey_ids = {
+    "COG": "SV_emNJjF8ZCQPAyA5",
+    "CONT": "SV_9LWr3TrjbpNEdMh",
+    "J4U": "SV_eu2KVQoRYyVFsod",
+    "J4U+COG": "SV_cVfzu7FqlpU53yl",
+    "NJS": "SV_cVfzu7FqlpU53yl",
+    "J4U+NJS": "SV_cVfzu7FqlpU53yl",
+}
+
 
 def min_max_scaler(domain, target, x, inverse=False):
     x = np.clip(x, domain[0], domain[1])
@@ -127,9 +136,13 @@ def get_surveys():
         data = z.read(name)
         return pd.read_csv(StringIO(str(data, "utf-8")))
 
-    df_main = dw_survey(survey_id_main)
+    dfs = []
     df_cruiser = dw_survey(survey_id_cruiser)
-    df = process(df_main, df_cruiser)
+    for group_name, survey_id in survey_ids.items():
+        df_main = dw_survey(survey_id)
+        df = process(df_main, df_cruiser)
+        dfs.append(df)
+    df = pd.concat(dfs)
     return df
 
 

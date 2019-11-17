@@ -4,12 +4,15 @@ from sqlalchemy.ext.declarative import declarative_base
 from config import get_config
 
 engine = create_engine(
-    'mysql+mysqlconnector://{user}:{pwd}@127.0.0.1/j4u'.format(
-        user=get_config()['mysql_user'], pwd=get_config()['mysql_pwd']),
+    "mysql+mysqlconnector://{user}:{pwd}@127.0.0.1/j4u".format(
+        user=get_config()["mysql_user"], pwd=get_config()["mysql_pwd"]
+    ),
     convert_unicode=True,
-    pool_recycle=600)
+    pool_recycle=600,
+)
 db_session = scoped_session(
-    sessionmaker(autocommit=False, autoflush=False, bind=engine))
+    sessionmaker(autocommit=False, autoflush=False, bind=engine)
+)
 Base = declarative_base()
 Base.query = db_session.query_property()
 
@@ -21,55 +24,59 @@ def init_db():
 
     import database.models
 
-    if get_config()['mode'] == 'dev':
+    if get_config()["mode"] == "dev":
         Base.metadata.drop_all(bind=engine)
 
     Base.metadata.create_all(bind=engine)
 
     from database.models import User
+
     admin = User(
-        civilite='M',
-        firstName='admin',
-        lastName='nimda',
-        birthDate='2019-01-01',
-        phone='0658062948',
-        email='admin@example.com',
-        pwd='jdida',
-        plastaId='a111111',
-        surveyId='40340304',
+        civilite="M",
+        firstName="admin",
+        lastName="nimda",
+        birthDate="2019-01-01",
+        phone="0658062948",
+        email="admin@example.com",
+        pwd="jdida",
+        plastaId="a111111",
+        surveyId="60254544",
         verified=True,
         blocked=False,
         fixedOldJobValue=False,
         fixedAlphaBeta=False,
-        group='COG')
+        group="J4U",
+    )
     other = User(
-        civilite='M',
-        firstName='other',
-        lastName='nimda',
-        birthDate='2019-01-01',
-        phone='0658062947',
-        email='other@example.com',
-        pwd='jdida',
-        plastaId='009',
-        surveyId='40340304',
+        civilite="M",
+        firstName="other",
+        lastName="nimda",
+        birthDate="2019-01-01",
+        phone="0658062947",
+        email="other@example.com",
+        pwd="jdida",
+        plastaId="009",
+        surveyId="17813205",
         verified=True,
         blocked=False,
-        group='J4U')
+        group="COG",
+    )
     ather = User(
-        civilite='M',
-        firstName='ather',
-        lastName='nimda',
-        birthDate='2019-01-01',
-        phone='0658062949',
-        email='ather@example.com',
-        pwd='jdida',
-        plastaId='003',
-        surveyId='9021988',
+        civilite="M",
+        firstName="ather",
+        lastName="nimda",
+        birthDate="2019-01-01",
+        phone="0658062949",
+        email="ather@example.com",
+        pwd="jdida",
+        plastaId="003",
+        surveyId="86930465",
         verified=True,
-        group='CONT')
+        group="CONT",
+    )
     try:
         db_session.add_all([admin, other, ather])
         db_session.commit()
         print(User.query.all())
     except:
-        print('Fake users already populated')
+        print("Fake users already populated")

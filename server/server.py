@@ -106,7 +106,7 @@ def confirm_validity_token(token):
         obj = serializer.loads(token, salt=app.salt)
         date = obj["date"]
         current = datetime.date.today()
-        date = datetime.datetime.strptime(date, "%d-%m-%Y").date()
+        date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
         delta = date - current
         if delta.days < 0:
             return False
