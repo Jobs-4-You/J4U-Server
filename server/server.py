@@ -301,21 +301,32 @@ def signup():
         recipients=[form["email"]],
     )
     msg.html = """
-                <p>
-                Bonjour,
-                </p>
-                <p>
-                Nous vous remercions pour votre participation au projet « Job For You » (J4U).
-                </p>
-                <p>
-                Suite à votre inscription, voici un email de confirmation. Afin de valider votre compte, il vous suffit de cliquer sur le lien suivant (qui n’est actif que quelques jours) :
-                </p>
-                <p>
-                <a href="{}">Cliquez ici pour confirmer votre adresse email</a>
-                </p>
-                <p>
-                L’équipe J4U
-                </p>
+        <p>
+            Chère participante, cher participant,
+        </p>
+
+        <p>
+            Nous vous remercions pour votre inscription à l’étude “Job For You” (J4U). Afin de finaliser votre inscription, veuillez cliquer sur le lien ci-dessous :
+        </p>
+
+        <p>
+            <a href="{}">Cliquez ici pour confirmer votre adresse email</a>
+        </p>
+
+        <p>
+            Votre inscription vous donne accès à un outil innovant et personnalisé ! Afin d’avoir accès à cet outil, vous devez répondre à une enquête. Les résultats de l’enquête nous permettent de paramétrer l’outil au plus juste.
+        </p>
+
+        <p>
+            <strong>Accédez directement à cette enquête sur la page d’accueil de notre <a href="https://j4u.unil.ch">site web</a>.</strong>strong>
+        </p>
+
+        <p>
+            L’équipe J4U vous remercie
+        </p>
+        <p>
+            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Si vous souhaitez vous désinscrire, cliquez sur désincription. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales</a> de l’étude et les <a href="https://j4u.unil.ch/#/legal">conditions générales</a> du tirage au sort. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
+        </p>
                 """.format(
         url_conf
     )
