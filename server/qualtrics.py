@@ -147,11 +147,15 @@ def get_surveys():
 
 
 def retrieve_all(surveyId):
+    print("aksdnfkjasnflkjsdn")
     df = get_surveys()
     uois = User.query.filter_by(formDone=False).all()
     for uoi in uois:
+
         if uoi.surveyId in df["ID"].unique():
             v = df[df["ID"] == uoi.surveyId][df.columns[1:]].values[0]
+            v = v.tolist()
+            v = [float(x) for x in v]
             f = Features(*v)
             uoi.features = f
             uoi.formDone = True
