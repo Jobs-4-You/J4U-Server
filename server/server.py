@@ -662,6 +662,12 @@ def utils_dump_activities():
     )
 
 
+@app.route("/formulaire", methods=["GET"])
+@validate_json
+def formulaire():
+    return send_file("Formulaire.pdf", as_attachment=True)
+
+
 if __name__ == "__main__":
     init_db()
     init_logdb()
