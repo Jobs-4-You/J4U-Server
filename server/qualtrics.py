@@ -19,6 +19,15 @@ survey_ids = {
     "J4U+NJS": "SV_cVfzu7FqlpU53yl",
 }
 
+cruiser_ids = {
+    "COG": "SV_af0DlvFQEuZhg8t",
+    "CONT": "SV_2fAdbnvAnNMNQgd",
+    "J4U": "SV_3PjMqEIEXB52z7T",
+    "J4U+COG": "SV_ePrAxjj45PZYMu1",
+    "NJS": "SV_dm75q6TZbF7mEOV",
+    "J4U+NJS": "SV_1ZwZeMCHJD0qrul",
+}
+
 
 def min_max_scaler(domain, target, x, inverse=False):
     x = np.clip(x, domain[0], domain[1])
@@ -137,12 +146,13 @@ def get_surveys():
         return pd.read_csv(StringIO(str(data, "utf-8")))
 
     dfs = []
-    df_cruiser = dw_survey(survey_id_cruiser)
-    for group_name, survey_id in survey_ids.items():
-        df_main = dw_survey(survey_id)
+    for group_name in survey_ids.keys():
+        df_main = dw_survey(survey_ids[group_name])
+        df_cruiser = dw_survey(cruiser_ids[group_name])
         df = process(df_main, df_cruiser)
         dfs.append(df)
     df = pd.concat(dfs)
+
     return df
 
 
