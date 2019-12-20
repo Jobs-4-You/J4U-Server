@@ -40,12 +40,12 @@ def init_db():
         email="admin@example.com",
         pwd="jdida",
         plastaId="a111111",
-        surveyId="60254544",
+        surveyId="12073231",
         verified=True,
         blocked=False,
         fixedOldJobValue=False,
         fixedAlphaBeta=False,
-        group="J4U",
+        group="J4U+COGG",
     )
     other = User(
         civilite="M",

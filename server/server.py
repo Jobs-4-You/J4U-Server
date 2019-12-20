@@ -318,14 +318,14 @@ def signup():
         </p>
 
         <p>
-            <strong>Accédez directement à cette enquête sur la page d’accueil de notre <a href="https://j4u.unil.ch">site web</a>.</strong>strong>
+            <strong>Accédez directement à cette enquête sur la page d’accueil de notre <a href="https://j4u.unil.ch">site web</a>.</strong>
         </p>
 
         <p>
             L’équipe J4U vous remercie
         </p>
         <p>
-            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Si vous souhaitez vous désinscrire, cliquez sur désincription. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales</a> de l’étude et les <a href="https://j4u.unil.ch/#/legal">conditions générales</a> du tirage au sort. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
+            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Si vous souhaitez vous désinscrire, cliquez sur désincription. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales de l’étude</a> et les <a href="https://j4u.unil.ch/#/tirage">conditions générales du tirage au sort</a>. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
         </p>
                 """.format(
         url_conf
