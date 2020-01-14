@@ -282,11 +282,12 @@ def signup():
         db_session.commit()
     except sqlalchemy.exc.IntegrityError as err:
         duplicated_key = err.orig.msg.split("'")[-2]
+        mm = "Ce numéro de téléphone" if duplicated_key == "phone" else duplicated_key
         return (
             jsonify(
                 {
-                    "msg": "{} est déja utilisée. Si vous avez déja un compte et oublié votre mot de passe, cliquer sur 'Renvoi du mot de passe' sur la page de login".format(
-                        duplicated_key
+                    "msg": "{} est déja utilisé. Si vous avez déja un compte et oublié votre mot de passe, cliquer sur 'Renvoi du mot de passe' sur la page de login".format(
+                        mm
                     )
                 }
             ),
@@ -322,10 +323,10 @@ def signup():
         </p>
 
         <p>
-            L’équipe J4U vous remercie
+            L’équipe J4U vous remercie.
         </p>
         <p>
-            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Si vous souhaitez vous désinscrire, cliquez sur désincription. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales de l’étude</a> et les <a href="https://j4u.unil.ch/#/tirage">conditions générales du tirage au sort</a>. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
+            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Pour vous désinscrire à tout moment, écrivez-nous avec « désinscription » en objet. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales de l’étude</a> et les <a href="https://j4u.unil.ch/#/tirage">conditions générales du tirage au sort</a>. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
         </p>
                 """.format(
         url_conf
@@ -477,6 +478,8 @@ def positions():
     )
     res = response.json()
     res = {"totalCount": response.headers.get("X-Total-Count", "0"), "positions": res}
+
+    print(res)
 
     return jsonify(res)
 
