@@ -433,7 +433,7 @@ def linkqualitrics():
 def positions():
     data = request.json
     job = request.args.get("avam")
-    oldJobLabel = data["oldJobLabel"]
+    oldJobLabel = data.get("oldJobLabel")
 
     # This parameter is only received by control-group searches
     # Under the J4U condition, oldJobValue and oldJobLabel are persisted on recom
