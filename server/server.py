@@ -479,7 +479,10 @@ def positions():
     res = response.json()
     res = {"totalCount": response.headers.get("X-Total-Count", "0"), "positions": res}
 
-    print(res)
+    import curlify
+    print("="*50)
+    print(curlify.to_curl(response.request))
+    print("="*50)
 
     return jsonify(res)
 

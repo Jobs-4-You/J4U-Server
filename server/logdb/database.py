@@ -28,7 +28,7 @@ def init_logdb():
         activities.drop()
 
     jobs.drop()
-    with open("jobs.json") as f:
+    with open("new_jobs.json") as f:
         data = json.load(f)
 
     jobs.insert_many(data)
