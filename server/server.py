@@ -284,9 +284,12 @@ def signup():
         db_session.commit()
     except sqlalchemy.exc.IntegrityError as err:
         duplicated_key = err.orig.msg.split("'")[-2]
-        print(duplicated_key)
-        mm = "Ce numéro de téléphone est déjà utilisé." if duplicated_key == "phone" else duplicated_key
-        mm = "Cette adresse email est déjà utilisée." if duplicated_key == "email" else duplicated_key
+        mm = duplicated_key
+        if duplicated_key == "phone":
+            mm = "Ce numéro de téléphone est déjà utilisé." 
+        elif duplicated_key == "email":
+            mm = "Cette adresse email est déjà utilisée." 
+        
         return (
             jsonify(
                 {
