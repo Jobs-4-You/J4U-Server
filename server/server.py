@@ -284,11 +284,12 @@ def signup():
         db_session.commit()
     except sqlalchemy.exc.IntegrityError as err:
         duplicated_key = err.orig.msg.split("'")[-2]
-        mm = "Ce numéro de téléphone" if duplicated_key == "phone" else duplicated_key
+        mm = "Ce numéro de téléphone est déjà utilisé." if duplicated_key == "phone" else duplicated_key
+        mm = "Cette adresse email est déjà utilisée." if duplicated_key == "email" else duplicated_key
         return (
             jsonify(
                 {
-                    "msg": "{} est déja utilisé. Si vous avez déja un compte et oublié votre mot de passe, cliquer sur 'Renvoi du mot de passe' sur la page de login".format(
+                    "msg": "{}  Si vous avez déjà un compte et avez oublié votre mot de passe, cliquez sur  'Mot de passe oublié?' sur la page 'se connecter'".format(
                         mm
                     )
                 }
