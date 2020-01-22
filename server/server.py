@@ -54,9 +54,11 @@ app.config.update(
         MAIL_SUPPRESS_SEND=False,
         TESTING=False,
         MAIL_DEBUG=True,
-        MAIL_USE_SSL=True,
+        #MAIL_USE_SSL=True,
+        MAIL_USE_TLS=True,
         MAIL_SERVER="smtp.unil.ch",
-        MAIL_PORT=465,
+        #MAIL_PORT=465,
+        MAIL_PORT=587,
         MAIL_USERNAME=get_config()["email_user"],
         MAIL_PASSWORD=get_config()["email_pwd"],
     )
