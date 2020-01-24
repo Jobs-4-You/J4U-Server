@@ -54,10 +54,10 @@ app.config.update(
         MAIL_SUPPRESS_SEND=False,
         TESTING=False,
         MAIL_DEBUG=True,
-        #MAIL_USE_SSL=True,
+        # MAIL_USE_SSL=True,
         MAIL_USE_TLS=True,
         MAIL_SERVER="smtp.unil.ch",
-        #MAIL_PORT=465,
+        # MAIL_PORT=465,
         MAIL_PORT=587,
         MAIL_USERNAME=get_config()["email_user"],
         MAIL_PASSWORD=get_config()["email_pwd"],
@@ -286,10 +286,10 @@ def signup():
         duplicated_key = err.orig.msg.split("'")[-2]
         mm = duplicated_key
         if duplicated_key == "phone":
-            mm = "Ce numéro de téléphone est déjà utilisé." 
+            mm = "Ce numéro de téléphone est déjà utilisé."
         elif duplicated_key == "email":
-            mm = "Cette adresse email est déjà utilisée." 
-        
+            mm = "Cette adresse email est déjà utilisée."
+
         return (
             jsonify(
                 {
@@ -333,7 +333,7 @@ def signup():
             L’équipe J4U vous remercie.
         </p>
         <p>
-            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Pour vous désinscrire à tout moment, écrivez-nous avec « désinscription » en objet. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales de l’étude</a> et les <a href="https://j4u.unil.ch/#/tirage">conditions générales du tirage au sort</a>. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
+            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Pour vous désinscrire à tout moment, écrivez-nous avec « désinscription » en objet. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales de l’étude</a>. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
         </p>
                 """.format(
         url_conf
@@ -487,9 +487,10 @@ def positions():
     res = {"totalCount": response.headers.get("X-Total-Count", "0"), "positions": res}
 
     import curlify
-    print("="*50)
+
+    print("=" * 50)
     print(curlify.to_curl(response.request))
-    print("="*50)
+    print("=" * 50)
 
     return jsonify(res)
 
