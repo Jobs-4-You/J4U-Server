@@ -333,7 +333,7 @@ def signup():
             L’équipe J4U vous remercie.
         </p>
         <p>
-            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 XXX XX XX. Pour vous désinscrire à tout moment, écrivez-nous avec « désinscription » en objet. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales de l’étude</a>. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
+            Si vous avez des questions, vous pouvez nous contacter par email à <a href="mailto:j4u@unil.ch">j4u@unil.ch</a> ou par téléphone au 079 129 14 45. Pour vous désinscrire à tout moment, écrivez-nous avec « désinscription » en objet. Pour en savoir plus, lisez les <a href="https://j4u.unil.ch/#/legal">conditions générales de l’étude</a>. Chaque étape augmente vos chances de gagner au tirage au sort final : la participation à l’enquête rapporte 10 billets de loterie.
         </p>
                 """.format(
         url_conf
